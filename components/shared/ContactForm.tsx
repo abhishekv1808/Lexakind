@@ -31,13 +31,20 @@ function FieldError({ message }: { message?: string }) {
   return <p className="mt-1.5 text-[12px] text-[#e5484d]">{message}</p>;
 }
 
-export function ContactForm() {
+export function ContactForm({
+  defaultPracticeArea = '',
+}: {
+  defaultPracticeArea?: string;
+} = {}) {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<FormValues>({ resolver: zodResolver(schema) });
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: { practiceArea: defaultPracticeArea },
+  });
 
   const onSubmit = async (data: FormValues) => {
     try {
@@ -125,7 +132,6 @@ export function ContactForm() {
           <div className="relative">
             <select
               id="practiceArea"
-              defaultValue=""
               className={cn(
                 inputBase,
                 'appearance-none pr-10 cursor-pointer',

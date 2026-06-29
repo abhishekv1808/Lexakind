@@ -34,6 +34,21 @@ export const localBusinessSchema = () => ({
   areaServed: { '@type': 'Country', name: 'India' },
 });
 
+export const serviceSchema = (pa: {
+  name: string;
+  slug: string;
+  description: string;
+}) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: pa.name,
+  name: pa.name,
+  description: pa.description,
+  url: `${SITE.url}/practice-areas/${pa.slug}`,
+  provider: { '@type': 'LegalService', name: SITE.name, url: SITE.url },
+  areaServed: { '@type': 'Country', name: 'India' },
+});
+
 export const breadcrumbSchema = (items: { name: string; url: string }[]) => ({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
