@@ -1,26 +1,119 @@
 @import "tailwindcss";
 
+/* ============================================================
+   LEXAKIND DESIGN SYSTEM — Navy + Gold (Regalis-style)
+   Token names are retained (--blk* = navy, --ora* = gold)
+   so all components recolor from this single source.
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core dark — blackish/charcoal gray — nav, dark sections, footer */
+  --blk: #161618;
+  --blk-2: #1b1b1e;
+  --blk-3: #232327;
+  --blk-4: #313137;
+
+  /* Orange accent — logo mark, accents */
+  --ora: #ff9100;
+  --ora-h: #ffa733;
+  --ora-d: #d67a00;
+
+  /* Light surfaces */
+  --wht: #ffffff;
+  --wht-2: #f4f6f9;
+  --wht-3: #e3e8ef;
+
+  /* Text */
+  --txt: #16233d;
+  --muted: #8a93a3;
+  --muted-2: #6b7585;
+  --txt-inv: #ffffff;
 }
 
+/* ============================================================
+   Tailwind v4 theme mapping — exposes tokens as utilities
+   (bg-blk, text-ora, font-display, rounded-btn, etc.)
+   ============================================================ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-blk: var(--blk);
+  --color-blk-2: var(--blk-2);
+  --color-blk-3: var(--blk-3);
+  --color-blk-4: var(--blk-4);
+
+  --color-ora: var(--ora);
+  --color-ora-h: var(--ora-h);
+  --color-ora-d: var(--ora-d);
+
+  --color-wht: var(--wht);
+  --color-wht-2: var(--wht-2);
+  --color-wht-3: var(--wht-3);
+
+  --color-muted: var(--muted);
+  --color-muted-2: var(--muted-2);
+
+  --font-display: var(--font-display), Georgia, serif;
+  --font-body: var(--font-body), system-ui, sans-serif;
+
+  --radius-btn: 3px;
+  --radius-card: 4px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================
+   Base
+   ============================================================ */
+/* Lenis smooth scroll (https://github.com/darkroomengineering/lenis) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--wht);
+  color: var(--txt);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--ora);
+  color: var(--wht);
+}
+
+/* Accessibility: focus ring */
+:focus-visible {
+  outline: 2px solid var(--ora);
+  outline-offset: 2px;
+}
+
+/* Mega-menu: hidden scrollbar (scroll still works via wheel/trackpad) */
+.mega-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.mega-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
