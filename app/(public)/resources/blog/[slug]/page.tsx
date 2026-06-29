@@ -14,7 +14,11 @@ import {
   getAllPosts,
   BLOG_SLUGS,
 } from '@/lib/blog';
-import { formatDate } from '@/lib/utils';
+import { formatDate, slugify } from '@/lib/utils';
+import { SITE } from '@/lib/constants';
+import { ReadingProgress } from '@/components/blog/ReadingProgress';
+import { ArticleToc } from '@/components/blog/ArticleToc';
+import { ShareButtons } from '@/components/blog/ShareButtons';
 
 export const revalidate = 86400; // ISR — 24h
 
@@ -67,8 +71,14 @@ export default async function BlogPostPage({
     .slice(0, 2)
     .toUpperCase();
 
+  const headings = post.content.flatMap((b) =>
+    b.type === 'h2' ? [{ id: slugify(b.text), text: b.text }] : [],
+  );
+  const postUrl = `${SITE.url}/resources/blog/${post.slug}`;
+
   return (
     <>
+      <ReadingProgress targetId="article-body" />
       <SchemaMarkup
         schema={[
           articleSchema({
@@ -158,9 +168,10 @@ export default async function BlogPostPage({
       </section>
 
       {/* Body */}
-      <article className="bg-white px-5 py-12 md:px-12 md:py-16">
-        <div className="mx-auto w-full max-w-[760px]">
-          <PostBody blocks={post.content} />
+      <section className="bg-white px-5 py-12 md:px-12 md:py-16">
+        <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-14">
+          <article id="article-body" className="min-w-0 max-w-[760px]">
+            <PostBody blocks={post.content} />
 
           {/* Disclaimer */}
           <p className="mt-12 rounded-[4px] border border-wht-3 bg-wht-2 p-5 font-body text-[12px] font-light leading-relaxed text-muted">
@@ -194,8 +205,16 @@ export default async function BlogPostPage({
             <ArrowLeft size={15} />
             Back to all articles
           </Link>
+          </article>
+
+          <aside className="hidden lg:block">
+            <div className="sticky top-28 space-y-8">
+              <ArticleToc headings={headings} />
+              <ShareButtons url={postUrl} title={post.title} />
+            </div>
+          </aside>
         </div>
-      </article>
+      </section>
 
       {/* Related */}
       {related.length > 0 && (

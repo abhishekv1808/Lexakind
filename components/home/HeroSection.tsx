@@ -1,27 +1,28 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   motion,
   useScroll,
   useTransform,
   useReducedMotion,
-} from 'framer-motion';
+} from "framer-motion";
+import { AnimatedCounter } from "@/components/shared/AnimatedCounter";
 
 /** Bottom service strip (full-width row, like the reference) */
 const SERVICES = [
-  'Contract Case Handling',
-  'Strategic Legal Advisory',
-  'Tailored Legal Solutions',
-  'Court-Prepared Documentation',
+  "Contract Case Handling",
+  "Strategic Legal Advisory",
+  "Tailored Legal Solutions",
+  "Court-Prepared Documentation",
 ];
 
 /** Overlapping client avatars — initials placeholders until photos are added */
 const CLIENTS = [
-  { initials: 'RM', tone: 'bg-[#3a3a40]' },
-  { initials: 'AD', tone: 'bg-[#4a4a52]' },
-  { initials: 'KS', tone: 'bg-ora' },
+  { initials: "RM", tone: "bg-[#3a3a40]" },
+  { initials: "AD", tone: "bg-[#4a4a52]" },
+  { initials: "KS", tone: "bg-ora" },
 ];
 
 const ease = [0.22, 0.61, 0.36, 1] as const;
@@ -29,8 +30,17 @@ const ease = [0.22, 0.61, 0.36, 1] as const;
 // Hero media assets. Drop the optimized clip at /public/videos/hero-lawyer.mp4.
 // Until it exists, the poster (your existing cut-out) shows — so the hero looks
 // identical to now and degrades gracefully.
-const POSTER = '/images/hero-advocate.png';
-const VIDEO_MP4 = '/videos/hero-lawyer.mp4';
+const POSTER = "/images/hero-advocate.png";
+const VIDEO_MP4 = "/videos/hero-lawyer.mp4";
+
+// Hero video framing.
+// The poster is near-square (1500x1390, aspect ~1.08) so object-cover scales it
+// up and the subject renders large. The clip is 16:9 (1280x720, aspect ~1.78),
+// which roughly matches the hero box and fills it 1:1 - so the same object-cover
+// makes the subject look much smaller. We zoom the video in to match the poster.
+// Tune these two values if the woman sits too high/low or too big/small:
+const HERO_VIDEO_ZOOM = 1.0; // 1 = no zoom; higher = subject larger
+const HERO_VIDEO_ORIGIN = "50% 15%"; // x y - the point the zoom expands from
 
 export function HeroSection() {
   const ref = useRef<HTMLElement>(null);
@@ -40,7 +50,7 @@ export function HeroSection() {
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start start', 'end start'],
+    offset: ["start start", "end start"],
   });
 
   // Subtle scroll-zoom on the media — scaling never reveals edges (unlike translate).
@@ -52,7 +62,7 @@ export function HeroSection() {
   const contentY = useTransform(
     scrollYProgress,
     [0, 1],
-    reduce ? ['0%', '0%'] : ['0%', '14%'],
+    reduce ? ["0%", "0%"] : ["0%", "14%"],
   );
   const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
@@ -66,8 +76,8 @@ export function HeroSection() {
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
   // Render video only on desktop with motion allowed; otherwise the static poster.
@@ -95,21 +105,21 @@ export function HeroSection() {
     // Autoplay may be blocked until metadata loads or by policy — catch silently.
     video.play().catch(() => {});
 
-    video.addEventListener('ended', handleEnded);
-    return () => video.removeEventListener('ended', handleEnded);
+    video.addEventListener("ended", handleEnded);
+    return () => video.removeEventListener("ended", handleEnded);
   }, [showVideo]);
 
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[700px] flex-col overflow-hidden md:min-h-[760px] lg:min-h-[820px]"
+      className="relative flex min-h-[720px] flex-col overflow-hidden md:min-h-[760px] lg:min-h-[860px]"
     >
       {/* Dark background — subtle radial lift behind the figure */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(115% 90% at 50% 14%, #2a2a30 0%, #1a1a1e 46%, #101012 100%)',
+            "radial-gradient(115% 90% at 50% 14%, #2a2a30 0%, #1a1a1e 46%, #101012 100%)",
         }}
       />
 
@@ -130,7 +140,11 @@ export function HeroSection() {
             preload="auto"
             poster={POSTER}
             aria-hidden="true"
-            className="h-full w-full object-cover object-[50%_10%]"
+            style={{
+              transform: `scale(${HERO_VIDEO_ZOOM})`,
+              transformOrigin: HERO_VIDEO_ORIGIN,
+            }}
+            className="h-auto w-full object-cover object-[50%_10%]"
           >
             <source src={VIDEO_MP4} type="video/mp4" />
             {/* Optional: <source src="/videos/hero-lawyer.webm" type="video/webm" /> */}
@@ -154,7 +168,7 @@ export function HeroSection() {
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(to right, #0e0e10 0%, rgba(14,14,16,0.78) 22%, rgba(14,14,16,0.3) 46%, transparent 70%)',
+            "linear-gradient(to right, #0e0e10 0%, rgba(14,14,16,0.78) 22%, rgba(14,14,16,0.3) 46%, transparent 70%)",
         }}
       />
       {/* Bottom fade — blends into the trust bar below */}
@@ -206,7 +220,11 @@ export function HeroSection() {
               >
                 <div className="text-left lg:text-right">
                   <p className="font-display text-[32px] font-bold leading-none text-white">
-                    4000+
+                    <AnimatedCounter
+                      value={4000}
+                      suffix="+"
+                      format={(n) => String(n)}
+                    />
                   </p>
                   <p className="mt-1 font-body text-[14px] font-normal text-[#adadb4]">
                     Satisfied Clients

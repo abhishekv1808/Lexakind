@@ -7,9 +7,16 @@ interface Props {
   value: number;
   suffix?: string;
   duration?: number;
+  /** Override number formatting (default: en-IN with thousands separators). */
+  format?: (n: number) => string;
 }
 
-export function AnimatedCounter({ value, suffix = '', duration = 1800 }: Props) {
+export function AnimatedCounter({
+  value,
+  suffix = '',
+  duration = 1800,
+  format,
+}: Props) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
   const mv = useMotionValue(0);
@@ -23,10 +30,11 @@ export function AnimatedCounter({ value, suffix = '', duration = 1800 }: Props) 
     () =>
       spring.on('change', (v) => {
         if (ref.current) {
-          ref.current.textContent = `${Math.floor(v).toLocaleString('en-IN')}${suffix}`;
+          const fmt = format ?? ((n: number) => n.toLocaleString('en-IN'));
+          ref.current.textContent = `${fmt(Math.floor(v))}${suffix}`;
         }
       }),
-    [spring, suffix],
+    [spring, suffix, format],
   );
 
   return (

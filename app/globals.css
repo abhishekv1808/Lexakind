@@ -117,3 +117,30 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* ============================================================
+   Services marquee — seamless infinite horizontal scroll
+   ============================================================ */
+@keyframes lx-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation-name: lx-marquee;
+  animation-duration: 28s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+/* The brand ticker is decorative and informational — keep it scrolling
+   even when the OS requests reduced motion (it overrides the global rule
+   above purely for this element). */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation-name: lx-marquee !important;
+    animation-duration: 28s !important;
+    animation-timing-function: linear !important;
+    animation-iteration-count: infinite !important;
+  }
+}

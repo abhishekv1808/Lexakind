@@ -1,22 +1,23 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
 import {
   motion,
   AnimatePresence,
   useMotionValueEvent,
   useScroll,
-} from 'framer-motion';
-import { Menu, Phone, Scale, ChevronDown } from 'lucide-react';
-import { NAV_LINKS, SITE } from '@/lib/constants';
-import { cn } from '@/lib/utils';
-import { MobileMenu } from './MobileMenu';
-import { MegaMenu } from './MegaMenu';
-import { MobileServicesMenu } from './MobileServicesMenu';
+} from "framer-motion";
+import { Menu, Phone, ChevronDown } from "lucide-react";
+import { NAV_LINKS, SITE } from "@/lib/constants";
+import { cn } from "@/lib/utils";
+import { MobileMenu } from "./MobileMenu";
+import { MegaMenu } from "./MegaMenu";
+import { MobileServicesMenu } from "./MobileServicesMenu";
 
-const SERVICES_HREF = '/practice-areas';
+const SERVICES_HREF = "/practice-areas";
 
 export function Header() {
   const pathname = usePathname();
@@ -25,9 +26,9 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
-  const [activePA, setActivePA] = useState('corporate-law');
+  const [activePA, setActivePA] = useState("corporate-law");
 
-  useMotionValueEvent(scrollY, 'change', (y) => {
+  useMotionValueEvent(scrollY, "change", (y) => {
     setScrolled(y > 80);
   });
 
@@ -40,10 +41,10 @@ export function Header() {
   useEffect(() => {
     if (!megaOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setMegaOpen(false);
+      if (e.key === "Escape") setMegaOpen(false);
     };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [megaOpen]);
 
   // Hover-to-open with a small close delay so the cursor can travel
@@ -71,19 +72,23 @@ export function Header() {
     <>
       <motion.header
         className={cn(
-          'fixed top-0 left-0 right-0 z-[200] transition-colors duration-300',
-          solid ? 'bg-blk/95 backdrop-blur-sm shadow-sm' : 'bg-transparent',
+          "fixed top-0 left-0 right-0 z-[200] transition-all duration-500",
+          solid
+            ? "bg-[#0e0e10]/60 backdrop-blur-xl shadow-lg border-b border-white/10"
+            : "bg-transparent border-b border-transparent",
         )}
       >
-        <div className="mx-auto flex h-[64px] w-full max-w-6xl items-center justify-between px-5 md:h-[76px] md:px-12">
+        <div className="mx-auto flex h-[64px] w-full max-w-7xl items-center justify-between px-5 md:h-[76px] md:px-12">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-[4px] bg-ora text-white">
-              <Scale size={19} />
-            </span>
-            <span className="font-display font-bold text-[24px] text-white tracking-[0.04em]">
-              LEXAKIND
-            </span>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/lexakind-logo.png"
+              alt="Lexakind"
+              width={180}
+              height={36}
+              className="h-5 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop nav — centered */}
@@ -92,8 +97,8 @@ export function Header() {
               const isServices = link.href === SERVICES_HREF;
               const active = isServices
                 ? megaOpen || pathname.startsWith(SERVICES_HREF)
-                : link.href === '/'
-                  ? pathname === '/'
+                : link.href === "/"
+                  ? pathname === "/"
                   : pathname.startsWith(link.href);
 
               if (isServices) {
@@ -108,16 +113,16 @@ export function Header() {
                     aria-expanded={megaOpen}
                     aria-haspopup="true"
                     className={cn(
-                      'flex items-center gap-1 font-body text-[15px] font-medium tracking-[0.01em] transition-colors',
-                      active ? 'text-ora' : 'text-white hover:text-ora',
+                      "flex items-center gap-1 font-body text-[15px] font-medium tracking-[0.01em] transition-colors",
+                      active ? "text-ora" : "text-white hover:text-ora",
                     )}
                   >
                     {link.label}
                     <ChevronDown
                       size={14}
                       className={cn(
-                        'transition-transform duration-200',
-                        megaOpen && 'rotate-180',
+                        "transition-transform duration-200",
+                        megaOpen && "rotate-180",
                       )}
                     />
                   </Link>
@@ -129,8 +134,8 @@ export function Header() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    'font-body text-[15px] font-medium tracking-[0.01em] transition-colors',
-                    active ? 'text-ora' : 'text-white hover:text-ora',
+                    "font-body text-[15px] font-medium tracking-[0.01em] transition-colors",
+                    active ? "text-ora" : "text-white hover:text-ora",
                   )}
                 >
                   {link.label}

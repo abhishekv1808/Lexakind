@@ -1,4 +1,5 @@
 import type { BlogBlock } from '@/types/blog';
+import { slugify } from '@/lib/utils';
 
 export function PostBody({ blocks }: { blocks: BlogBlock[] }) {
   return (
@@ -9,7 +10,8 @@ export function PostBody({ blocks }: { blocks: BlogBlock[] }) {
             return (
               <h2
                 key={i}
-                className="pt-3 font-display text-[24px] font-semibold leading-snug tracking-tight text-blk"
+                id={slugify(block.text)}
+                className="scroll-mt-28 pt-3 font-display text-[24px] font-semibold leading-snug tracking-tight text-blk"
               >
                 {block.text}
               </h2>

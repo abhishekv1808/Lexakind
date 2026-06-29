@@ -24,7 +24,7 @@ export const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Practice Areas', href: '/practice-areas' },
   { label: 'About', href: '/about' },
-  { label: 'Resources', href: '/resources/blog' },
+  { label: 'Blog', href: '/resources/blog' },
   { label: 'Contact', href: '/contact' },
 ] as const;
 
