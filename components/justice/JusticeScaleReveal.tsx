@@ -71,7 +71,7 @@ export function JusticeScaleReveal() {
     return (
       <section className="relative h-screen overflow-hidden bg-blk">
         <Image
-          src="/frames/justice/frame_192.png"
+          src="/frames/justice/frame_192.jpg"
           alt="Lady Justice — Lexakind"
           fill
           sizes="100vw"

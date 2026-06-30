@@ -3,10 +3,10 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { TOTAL_FRAMES } from '@/lib/justice-content';
 
-// NOTE: files on disk are named with an underscore (frame_001.png),
+// NOTE: files on disk are named with an underscore (frame_001.jpg),
 // not a hyphen. Keep this in sync with public/frames/justice/.
 const FRAME_PATH = (n: number) =>
-  `/frames/justice/frame_${String(n).padStart(3, '0')}.png`;
+  `/frames/justice/frame_${String(n).padStart(3, '0')}.jpg`;
 
 interface JusticeCanvasBaseProps {
   progress: number;
