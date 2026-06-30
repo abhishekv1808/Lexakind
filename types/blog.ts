@@ -7,6 +7,8 @@ export type BlogBlock =
 export interface BlogAuthor {
   name: string;
   role: string;
+  /** Matches an advocate id in lib/team.ts for deep-linking + E-E-A-T. */
+  id?: string;
 }
 
 export interface BlogPost {

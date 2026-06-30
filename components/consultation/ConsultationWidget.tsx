@@ -16,6 +16,8 @@ import {
 import toast from 'react-hot-toast';
 import { PRACTICE_AREAS } from '@/lib/services-data';
 import { PA_ICONS } from '@/lib/pa-icons';
+import { HoneypotField } from '@/components/shared/HoneypotField';
+import { trackLead } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 
 const schema = z.object({
@@ -26,6 +28,7 @@ const schema = z.object({
   phone: z.string().regex(/^[6-9]\d{9}$/, 'Enter a valid 10-digit mobile number'),
   email: z.string().email('Enter a valid email address'),
   message: z.string().max(500, 'Message is too long').optional(),
+  website: z.string().optional(), // honeypot
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -109,6 +112,10 @@ export function ConsultationWidget() {
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error();
+      trackLead('consultation', {
+        practice_area: data.practiceArea,
+        value: 1,
+      });
       toast.success('Booking request received!');
       setDone(true);
     } catch {
@@ -179,7 +186,8 @@ export function ConsultationWidget() {
         ))}
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate className="relative">
+        <HoneypotField register={register('website')} />
         <AnimatePresence mode="wait">
           <motion.div
             key={step}

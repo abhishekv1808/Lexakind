@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ChevronRight, CalendarDays, Clock, ArrowRight } from 'lucide-react';
 import { SectionLabel } from '@/components/shared/SectionLabel';
 import { BlogList } from '@/components/blog/BlogList';
+import { LeadMagnet } from '@/components/shared/LeadMagnet';
 import { getAllPosts, BLOG_CATEGORIES } from '@/lib/blog';
 import { formatDate } from '@/lib/utils';
 
@@ -110,6 +111,9 @@ export default function BlogPage() {
       <section className="bg-white px-5 py-16 md:px-12 md:py-20">
         <BlogList posts={rest} categories={BLOG_CATEGORIES} />
       </section>
+
+      {/* Gated lead magnet */}
+      <LeadMagnet />
     </>
   );
 }

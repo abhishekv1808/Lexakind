@@ -56,6 +56,7 @@ export function WhyChooseUs() {
               width={1000}
               height={1200}
               sizes="(max-width: 1024px) 100vw, 560px"
+              unoptimized
               className="h-[360px] w-full object-cover md:h-[460px]"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-blk/70 via-transparent to-transparent" />

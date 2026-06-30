@@ -2,6 +2,7 @@ import { Toaster } from 'react-hot-toast';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { WhatsAppButton } from '@/components/layout/WhatsAppButton';
+import { MobileCTABar } from '@/components/layout/MobileCTABar';
 import { ExitIntentModal } from '@/components/shared/ExitIntentModal';
 
 export default function PublicLayout({
@@ -20,7 +21,10 @@ export default function PublicLayout({
       <Header />
       <main id="main">{children}</main>
       <Footer />
+      {/* Clears the fixed mobile CTA bar so it never covers footer content */}
+      <div className="h-14 md:hidden" aria-hidden="true" />
       <WhatsAppButton />
+      <MobileCTABar />
       <ExitIntentModal />
       <Toaster
         position="top-center"

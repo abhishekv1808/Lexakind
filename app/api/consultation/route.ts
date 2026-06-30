@@ -1,6 +1,6 @@
-import { Resend } from 'resend';
 import { z } from 'zod';
-import { SITE } from '@/lib/constants';
+import { isHoneypotTripped } from '@/lib/spam';
+import { getResend, escapeHtml, sendAutoReply, MAIL_FROM, MAIL_TO } from '@/lib/mailer';
 
 const schema = z.object({
   practiceArea: z.string().min(1),
@@ -20,6 +20,10 @@ export async function POST(req: Request) {
     return Response.json({ error: 'Invalid request body' }, { status: 400 });
   }
 
+  if (isHoneypotTripped(body)) {
+    return Response.json({ success: true });
+  }
+
   const result = schema.safeParse(body);
   if (!result.success) {
     return Response.json({ error: result.error.flatten() }, { status: 400 });
@@ -27,31 +31,31 @@ export async function POST(req: Request) {
 
   const { practiceArea, date, timeSlot, name, email, phone, message } =
     result.data;
-  const apiKey = process.env.RESEND_API_KEY;
+  const resend = getResend();
 
-  if (!apiKey) {
+  if (!resend) {
     return Response.json({ success: true, delivered: false });
   }
 
   try {
-    const resend = new Resend(apiKey);
     await resend.emails.send({
-      from: process.env.RESEND_FROM ?? 'onboarding@resend.dev',
-      to: process.env.RESEND_TO ?? SITE.email,
+      from: MAIL_FROM,
+      to: MAIL_TO,
       replyTo: email,
       subject: `[Lexakind Booking] ${practiceArea} — ${name} (${date} ${timeSlot})`,
       html: `
         <h2>New Consultation Booking</h2>
-        <p><strong>Practice area:</strong> ${practiceArea}</p>
-        <p><strong>Preferred date:</strong> ${date}</p>
-        <p><strong>Preferred time:</strong> ${timeSlot}</p>
+        <p><strong>Practice area:</strong> ${escapeHtml(practiceArea)}</p>
+        <p><strong>Preferred date:</strong> ${escapeHtml(date)}</p>
+        <p><strong>Preferred time:</strong> ${escapeHtml(timeSlot)}</p>
         <hr/>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        ${message ? `<p><strong>Message:</strong><br/>${message.replace(/\n/g, '<br/>')}</p>` : ''}
+        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+        <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+        ${message ? `<p><strong>Message:</strong><br/>${escapeHtml(message).replace(/\n/g, '<br/>')}</p>` : ''}
       `,
     });
+    await sendAutoReply(resend, email, name);
     return Response.json({ success: true, delivered: true });
   } catch {
     return Response.json(

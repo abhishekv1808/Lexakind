@@ -42,8 +42,10 @@ export async function generateMetadata({
       type: 'article',
       title: post.title,
       description: post.excerpt,
-      images: [post.coverImage],
       publishedTime: post.date,
+      authors: [post.author.name],
+      // og:image comes from the dynamic opengraph-image.tsx in this segment
+      // (a branded title card) — don't override it with the cover placeholder.
     },
   };
 }
@@ -87,6 +89,10 @@ export default async function BlogPostPage({
             slug: post.slug,
             date: post.date,
             author: post.author.name,
+            authorRole: post.author.role,
+            authorUrl: post.author.id
+              ? `https://www.lexakind.com/about/team#${post.author.id}`
+              : 'https://www.lexakind.com/about/team',
             image: post.coverImage,
           }),
           breadcrumbSchema([
@@ -133,12 +139,15 @@ export default async function BlogPostPage({
           </h1>
 
           <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-body text-[13px] text-[#adadb4]">
-            <span className="flex items-center gap-2">
+            <Link
+              href={`/about/team#${post.author.id ?? ''}`}
+              className="flex items-center gap-2 transition-colors hover:text-white"
+            >
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-ora text-[11px] font-medium text-white">
                 {initials}
               </span>
               {post.author.name}
-            </span>
+            </Link>
             <span className="flex items-center gap-1.5">
               <CalendarDays size={14} />
               {formatDate(post.date)}
@@ -189,9 +198,15 @@ export default async function BlogPostPage({
               {initials}
             </span>
             <div>
-              <p className="font-display text-[15px] font-semibold text-white">
-                {post.author.name}
+              <p className="font-body text-[11px] uppercase tracking-[0.12em] text-muted-2">
+                Written by
               </p>
+              <Link
+                href={`/about/team#${post.author.id ?? ''}`}
+                className="font-display text-[15px] font-semibold text-white transition-colors hover:text-ora"
+              >
+                {post.author.name}
+              </Link>
               <p className="mt-0.5 font-body text-[12px] font-light text-muted">
                 {post.author.role}
               </p>

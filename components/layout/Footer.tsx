@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Phone, Mail, MapPin, Scale, ArrowUpRight } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Scale, ArrowUp } from 'lucide-react';
 import { SITE, FOOTER_LINKS, WHATSAPP_LINK } from '@/lib/constants';
 
 function ColumnHeading({ children }: { children: React.ReactNode }) {
@@ -24,6 +24,12 @@ function FooterLink({ href, label }: { href: string; label: string }) {
     </Link>
   );
 }
+
+const RESOURCE_LINKS = [
+  { label: 'Legal Insights', href: '/resources/blog' },
+  { label: 'Free Legal Guide', href: '/resources/blog' },
+  { label: 'Book a Consultation', href: '/consultation' },
+];
 
 const SOCIALS = [
   {
@@ -56,32 +62,52 @@ const CONTACT = [
   },
   { icon: Phone, href: `tel:${SITE.phone}`, value: SITE.phoneDisplay },
   { icon: Mail, href: `mailto:${SITE.email}`, value: SITE.email },
+  { icon: Clock, value: SITE.hours },
 ];
 
 export function Footer() {
   return (
-    <footer className="border-t-2 border-ora bg-blk text-white">
-      {/* Main */}
-      <div className="mx-auto w-full max-w-6xl px-5 pb-12 pt-16 md:px-12">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-12 lg:gap-8">
-          {/* Brand */}
-          <div className="lg:col-span-4">
+    <footer className="relative overflow-hidden border-t-2 border-ora bg-blk text-white">
+      {/* Top inner glow */}
+      <div
+        className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[640px] -translate-x-1/2 opacity-50"
+        style={{
+          background:
+            'radial-gradient(circle, rgba(255,145,0,0.10), transparent 70%)',
+        }}
+      />
+      {/* Oversized brand watermark */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-6 left-1/2 -translate-x-1/2 select-none whitespace-nowrap font-display text-[120px] font-bold leading-none tracking-tight text-white/[0.02] md:text-[210px]"
+      >
+        LEXAKIND
+      </span>
+
+      <div className="relative mx-auto w-full max-w-6xl px-5 md:px-12">
+        {/* Top brand row */}
+        <div className="flex flex-col gap-8 border-b border-white/10 pb-10 pt-16 md:flex-row md:items-center md:justify-between">
+          <div className="max-w-[420px]">
             <Link href="/" className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-[4px] bg-ora text-white">
-                <Scale size={19} />
+              <span className="flex h-10 w-10 items-center justify-center rounded-[4px] bg-ora text-white">
+                <Scale size={20} />
               </span>
-              <span className="font-display text-[24px] font-bold tracking-[0.04em] text-white">
+              <span className="font-display text-[26px] font-bold tracking-[0.04em] text-white">
                 LEXAKIND
               </span>
             </Link>
-            <p className="mt-5 max-w-[300px] font-body text-[13px] font-light leading-relaxed text-[#8a8d93]">
+            <p className="mt-4 font-body text-[13px] font-light leading-relaxed text-[#8a8d93]">
               Connecting you with 4,000+ verified advocates across India —
               transparent pricing, end-to-end case tracking, and counsel you can
-              trust, headquartered in Bengaluru.
+              trust.
             </p>
+          </div>
 
-            {/* Socials */}
-            <div className="mt-6 flex items-center gap-2.5">
+          <div className="flex flex-col items-start gap-3 md:items-end">
+            <span className="font-body text-[11px] font-medium uppercase tracking-[0.16em] text-muted-2">
+              Follow us
+            </span>
+            <div className="flex items-center gap-2.5">
               {SOCIALS.map((s) => (
                 <a
                   key={s.name}
@@ -104,9 +130,11 @@ export function Footer() {
               ))}
             </div>
           </div>
+        </div>
 
-          {/* Company */}
-          <div className="lg:col-span-2">
+        {/* Link columns */}
+        <div className="grid grid-cols-2 gap-10 py-14 lg:grid-cols-4">
+          <div>
             <ColumnHeading>Company</ColumnHeading>
             <ul className="space-y-3.5">
               {FOOTER_LINKS.company.map((link) => (
@@ -117,8 +145,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Practice Areas */}
-          <div className="lg:col-span-3">
+          <div>
             <ColumnHeading>Practice Areas</ColumnHeading>
             <ul className="space-y-3.5">
               {FOOTER_LINKS.services.map((link) => (
@@ -129,51 +156,73 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
-          <div className="lg:col-span-3">
+          <div>
+            <ColumnHeading>Resources</ColumnHeading>
+            <ul className="space-y-3.5">
+              {RESOURCE_LINKS.map((link) => (
+                <li key={link.label}>
+                  <FooterLink href={link.href} label={link.label} />
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="col-span-2 lg:col-span-1">
             <ColumnHeading>Get in touch</ColumnHeading>
             <ul className="space-y-4">
-              {CONTACT.map((row) => (
-                <li key={row.value}>
-                  <a
-                    href={row.href}
-                    target={row.href.startsWith('http') ? '_blank' : undefined}
-                    rel={
-                      row.href.startsWith('http')
-                        ? 'noopener noreferrer'
-                        : undefined
-                    }
-                    className="group flex items-start gap-3"
-                  >
+              {CONTACT.map((row) => {
+                const inner = (
+                  <>
                     <span className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-[3px] bg-blk-3 text-ora transition-colors group-hover:bg-ora group-hover:text-white">
                       <row.icon size={15} />
                     </span>
                     <span className="font-body text-[13px] font-light leading-relaxed text-[#8a8d93] transition-colors group-hover:text-white">
                       {row.value}
                     </span>
-                  </a>
-                </li>
-              ))}
+                  </>
+                );
+                return (
+                  <li key={row.value}>
+                    {row.href ? (
+                      <a
+                        href={row.href}
+                        target={row.href.startsWith('http') ? '_blank' : undefined}
+                        rel={
+                          row.href.startsWith('http')
+                            ? 'noopener noreferrer'
+                            : undefined
+                        }
+                        className="group flex items-start gap-3"
+                      >
+                        {inner}
+                      </a>
+                    ) : (
+                      <div className="group flex items-start gap-3">{inner}</div>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
-
-            <Link
-              href="/consultation"
-              className="mt-6 inline-flex items-center gap-1.5 rounded-[3px] bg-ora px-4 py-2.5 font-body text-[13px] font-medium text-white transition-colors hover:bg-ora-h"
+            <a
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-2 rounded-[3px] bg-ora px-4 py-2.5 font-body text-[13px] font-medium text-white transition-colors hover:bg-ora-h"
             >
-              Book a consultation
-              <ArrowUpRight size={14} />
-            </Link>
+              Chat on WhatsApp
+            </a>
           </div>
         </div>
       </div>
 
       {/* Bottom strip */}
-      <div className="border-t border-white/[0.08]">
+      <div className="relative border-t border-white/[0.08]">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-4 px-5 py-5 md:flex-row md:px-12">
           <p className="font-body text-[12px] font-light text-[#6b6e74]">
             © {new Date().getFullYear()} Lexakind. All rights reserved.
           </p>
-          <div className="flex items-center gap-5">
+
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             {FOOTER_LINKS.legal.map((link) => (
               <Link
                 key={link.href}
@@ -183,6 +232,16 @@ export function Footer() {
                 {link.label}
               </Link>
             ))}
+            <a
+              href="#main"
+              className="group inline-flex items-center gap-1.5 rounded-full border border-white/12 px-3 py-1.5 font-body text-[11px] font-medium text-[#8a8d93] transition-colors hover:border-ora hover:text-ora"
+            >
+              Back to top
+              <ArrowUp
+                size={12}
+                className="transition-transform group-hover:-translate-y-0.5"
+              />
+            </a>
           </div>
         </div>
 

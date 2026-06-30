@@ -1,8 +1,13 @@
 import type { BlogPost } from '@/types/blog';
 
-const AUTHOR = {
-  name: 'Lexakind Legal Team',
-  role: 'Verified Advocates Network',
+// Posts are attributed to the real advocate who specialises in the topic
+// (E-E-A-T: legal content is YMYL — named, credentialed authorship matters).
+// Ids/names match advocates in lib/team.ts.
+const AUTHORS = {
+  rohan: { id: 'rohan-mehta', name: 'Adv. Rohan Mehta', role: 'Partner — Real Estate & RERA' },
+  priya: { id: 'priya-nair', name: 'Adv. Priya Nair', role: 'Partner — Family & Matrimonial' },
+  vikram: { id: 'vikram-shenoy', name: 'Adv. Vikram Shenoy', role: 'Partner — Corporate & Commercial' },
+  imran: { id: 'imran-khan', name: 'Adv. Imran Khan', role: 'Senior Associate — Civil Litigation' },
 };
 
 export const BLOG_POSTS: BlogPost[] = [
@@ -12,7 +17,7 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       'Title verification, encumbrance certificates and the documents you must never skip before you sign.',
     category: 'Property Law',
-    author: AUTHOR,
+    author: AUTHORS.rohan,
     date: '2026-06-18',
     readMinutes: 6,
     coverImage: '/images/blog/property-legal-checklist-bengaluru.png',
@@ -55,7 +60,7 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       'How the fast-track route works, what the two motions mean, and how long it really takes in practice.',
     category: 'Family Law',
-    author: AUTHOR,
+    author: AUTHORS.priya,
     date: '2026-06-10',
     readMinutes: 5,
     coverImage: '/images/blog/mutual-consent-divorce-process.png',
@@ -96,7 +101,7 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       'From equity splits to vesting and exits — the agreements that protect your company before it grows.',
     category: 'Corporate Law',
-    author: AUTHOR,
+    author: AUTHORS.vikram,
     date: '2026-05-28',
     readMinutes: 7,
     coverImage: '/images/blog/founder-agreements-startups.png',
@@ -139,7 +144,7 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       'What to do when a cheque is dishonoured — the notice, the timeline and how recovery actually works.',
     category: 'Recovery',
-    author: AUTHOR,
+    author: AUTHORS.imran,
     date: '2026-05-15',
     readMinutes: 5,
     coverImage: '/images/blog/cheque-bounce-section-138.png',
@@ -176,7 +181,7 @@ export const BLOG_POSTS: BlogPost[] = [
     excerpt:
       'Your rights as a homebuyer when a project is late — refunds, interest and how to file a RERA complaint.',
     category: 'Real Estate',
-    author: AUTHOR,
+    author: AUTHORS.rohan,
     date: '2026-05-02',
     readMinutes: 6,
     coverImage: '/images/blog/rera-possession-delay.png',

@@ -6,6 +6,8 @@ import { z } from 'zod';
 import toast from 'react-hot-toast';
 import { ChevronDown, Send } from 'lucide-react';
 import { PRACTICE_AREAS } from '@/lib/practice-areas';
+import { HoneypotField } from '@/components/shared/HoneypotField';
+import { trackLead } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 
 const schema = z.object({
@@ -19,6 +21,7 @@ const schema = z.object({
     .string()
     .min(20, 'Please add a little more detail (min 20 characters)')
     .max(1000, 'Message is too long (max 1000 characters)'),
+  website: z.string().optional(), // honeypot
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -54,6 +57,7 @@ export function ContactForm({
         body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error('Request failed');
+      trackLead('contact', { practice_area: data.practiceArea });
       toast.success("Thank you! We'll get back to you shortly.");
       reset();
     } catch {
@@ -62,7 +66,8 @@ export function ContactForm({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="relative space-y-5">
+      <HoneypotField register={register('website')} />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         {/* Name */}
         <div>

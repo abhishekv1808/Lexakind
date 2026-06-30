@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { SectionLabel } from '@/components/shared/SectionLabel';
 import { PracticeAreasBrowser } from '@/components/practice-areas/PracticeAreasBrowser';
+import { SchemaMarkup } from '@/components/shared/SchemaMarkup';
+import { breadcrumbSchema, itemListSchema } from '@/lib/schema';
 import { TOTAL_SERVICES, PRACTICE_AREAS } from '@/lib/services-data';
 
 export const metadata: Metadata = {
@@ -12,6 +14,21 @@ export const metadata: Metadata = {
 export default function PracticeAreasPage() {
   return (
     <>
+      <SchemaMarkup
+        schema={[
+          breadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Practice Areas', url: '/practice-areas' },
+          ]),
+          itemListSchema(
+            PRACTICE_AREAS.map((pa) => ({
+              name: pa.name,
+              url: `/practice-areas/${pa.slug}`,
+            })),
+            'Lexakind Practice Areas',
+          ),
+        ]}
+      />
       {/* Hero */}
       <section className="relative overflow-hidden bg-blk px-5 pb-16 pt-[140px] md:px-12 md:pb-20 md:pt-[168px]">
         <div

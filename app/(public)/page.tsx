@@ -14,10 +14,24 @@ import { TestimonialsSection } from '@/components/home/TestimonialsSection';
 import { FAQSection } from '@/components/home/FAQSection';
 import { Insights } from '@/components/home/Insights';
 import { CTABanner } from '@/components/home/CTABanner';
+import type { Metadata } from 'next';
+import { SchemaMarkup } from '@/components/shared/SchemaMarkup';
+import {
+  organizationSchema,
+  websiteSchema,
+  localBusinessSchema,
+} from '@/lib/schema';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+};
 
 export default function HomePage() {
   return (
     <>
+      <SchemaMarkup
+        schema={[organizationSchema(), websiteSchema(), localBusinessSchema()]}
+      />
       <HeroSection />
       <TrustBar />
       <WhySection />

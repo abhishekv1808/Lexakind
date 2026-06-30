@@ -1,0 +1,39 @@
+# Lexakind
+
+> Lexakind is a legal-services platform connecting individuals and businesses
+> across India with verified, specialist advocates. Headquartered in Bengaluru,
+> Karnataka, we cover 190+ legal services across 13 practice areas with
+> transparent pricing, end-to-end case tracking, and a free first consultation.
+
+Contact: +91 86188 88526 · lexakind1@gmail.com
+Location: Level 15, UB City, Concorde Towers, Vittal Mallya Road, Bengaluru 560001
+Hours: Mon–Fri 8AM–5PM · Sat 8AM–1PM
+
+## Practice areas
+- [Corporate Law](https://www.lexakind.com/practice-areas/corporate-law): Business formation, agreements & compliance
+- [Family Law](https://www.lexakind.com/practice-areas/family-law): Matrimonial, divorce, custody & family matters
+- [Criminal Law](https://www.lexakind.com/practice-areas/criminal-law): Defence, bail & criminal case representation
+- [Civil Litigation](https://www.lexakind.com/practice-areas/civil-litigation): Court cases, disputes & civil remedies
+- [Property Law](https://www.lexakind.com/practice-areas/property-law): Property verification, disputes & documentation
+- [Real Estate & RERA](https://www.lexakind.com/practice-areas/real-estate-rera): RERA complaints, builder disputes & NRI property
+- [Cyber Crime](https://www.lexakind.com/practice-areas/cyber-crime): Online fraud, data theft & digital harassment
+- [Consumer Protection](https://www.lexakind.com/practice-areas/consumer-protection): Consumer complaints, fraud & online scams
+- [Intellectual Property](https://www.lexakind.com/practice-areas/intellectual-property): Trademarks, patents, copyright & design
+- [NRI Legal Services](https://www.lexakind.com/practice-areas/nri-legal-services): Property, court cases & legal aid for NRIs
+- [Labour & Employment](https://www.lexakind.com/practice-areas/labour-employment): Workplace rights, compliance & employment law
+- [Foreign Nationals](https://www.lexakind.com/practice-areas/foreign-nationals): Visa, immigration & legal aid for foreigners in India
+- [Consultation Services](https://www.lexakind.com/practice-areas/consultation): Direct legal advice across all areas
+
+## Key pages
+- [All practice areas](https://www.lexakind.com/practice-areas): Browse 190+ services across 13 practice areas
+- [Book a consultation](https://www.lexakind.com/consultation): Free first consultation with a verified advocate
+- [About Lexakind](https://www.lexakind.com/about): Mission, values and approach
+- [Our team](https://www.lexakind.com/about/team): The verified advocates behind Lexakind
+- [Contact](https://www.lexakind.com/contact): Phone, email, office and enquiry form
+
+## Resources
+- [Legal Insights blog](https://www.lexakind.com/resources/blog): Plain-language legal guidance on property, family, corporate, recovery and real estate
+
+## Notes
+- Lexakind serves clients across all of India, with a head office in Bengaluru.
+- Information on the website is general and does not constitute legal advice.

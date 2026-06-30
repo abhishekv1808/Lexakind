@@ -1,5 +1,32 @@
 import { SITE } from '@/lib/constants';
 
+export const organizationSchema = () => ({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.name,
+  url: SITE.url,
+  logo: `${SITE.url}/icon.png`,
+  email: SITE.email,
+  telephone: SITE.phone,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.address.line,
+    addressLocality: SITE.address.city,
+    addressRegion: SITE.address.region,
+    postalCode: SITE.address.postalCode,
+    addressCountry: SITE.address.country,
+  },
+  areaServed: { '@type': 'Country', name: 'India' },
+});
+
+export const websiteSchema = () => ({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.name,
+  url: SITE.url,
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+});
+
 export const localBusinessSchema = () => ({
   '@context': 'https://schema.org',
   '@type': ['LegalService', 'LocalBusiness'],
@@ -49,6 +76,21 @@ export const serviceSchema = (pa: {
   areaServed: { '@type': 'Country', name: 'India' },
 });
 
+export const itemListSchema = (
+  items: { name: string; url: string }[],
+  name: string,
+) => ({
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name,
+  itemListElement: items.map(({ name, url }, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name,
+    url: `${SITE.url}${url}`,
+  })),
+});
+
 export const breadcrumbSchema = (items: { name: string; url: string }[]) => ({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -66,6 +108,8 @@ export const articleSchema = (post: {
   slug: string;
   date: string;
   author: string;
+  authorRole?: string;
+  authorUrl?: string;
   image: string;
 }) => ({
   '@context': 'https://schema.org',
@@ -75,7 +119,13 @@ export const articleSchema = (post: {
   image: `${SITE.url}${post.image}`,
   datePublished: post.date,
   dateModified: post.date,
-  author: { '@type': 'Organization', name: post.author },
+  author: {
+    '@type': 'Person',
+    name: post.author,
+    ...(post.authorRole ? { jobTitle: post.authorRole } : {}),
+    ...(post.authorUrl ? { url: post.authorUrl } : {}),
+    worksFor: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  },
   publisher: {
     '@type': 'Organization',
     name: SITE.name,

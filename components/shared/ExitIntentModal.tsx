@@ -7,6 +7,8 @@ import { z } from 'zod';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { X, Check, Scale, PhoneCall } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { HoneypotField } from '@/components/shared/HoneypotField';
+import { trackLead } from '@/lib/analytics';
 import { cn } from '@/lib/utils';
 
 const STORAGE_KEY = 'lx_exit_shown';
@@ -14,6 +16,7 @@ const STORAGE_KEY = 'lx_exit_shown';
 const schema = z.object({
   name: z.string().min(2, 'Please enter your name'),
   phone: z.string().regex(/^[6-9]\d{9}$/, 'Enter a valid 10-digit mobile number'),
+  website: z.string().optional(), // honeypot
 });
 type FormValues = z.infer<typeof schema>;
 
@@ -80,6 +83,7 @@ export function ExitIntentModal() {
         body: JSON.stringify({ ...data, source: 'exit-intent-popup' }),
       });
       if (!res.ok) throw new Error();
+      trackLead('exit_intent');
       toast.success("Thanks! We'll call you back shortly.");
       setDone(true);
       setTimeout(() => setOpen(false), 2200);
@@ -182,8 +186,9 @@ export function ExitIntentModal() {
                   <form
                     onSubmit={handleSubmit(onSubmit)}
                     noValidate
-                    className="mt-5 space-y-3"
+                    className="relative mt-5 space-y-3"
                   >
+                    <HoneypotField register={register('website')} />
                     <div>
                       <input
                         placeholder="Your name"

@@ -1,10 +1,14 @@
 import type { Metadata } from 'next';
 import { displayFont, bodyFont } from '@/lib/fonts';
 import { SmoothScroll } from '@/components/providers/SmoothScroll';
+import { Analytics } from '@/components/providers/Analytics';
 import './globals.css';
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.lexakind.com';
+const GSC = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.lexakind.com'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Lexakind — Trusted Legal Services in Bengaluru',
     template: '%s | Lexakind',
@@ -17,6 +21,7 @@ export const metadata: Metadata = {
     siteName: 'Lexakind',
   },
   robots: { index: true, follow: true },
+  ...(GSC ? { verification: { google: GSC } } : {}),
 };
 
 export default function RootLayout({
@@ -32,8 +37,9 @@ export default function RootLayout({
           <link rel="preload" href="/videos/hero-lawyer.mp4" as="video" type="video/mp4" />
         */}
       </head>
-      <body className="font-body antialiased">
+      <body className="font-body antialiased" suppressHydrationWarning>
         <SmoothScroll>{children}</SmoothScroll>
+        <Analytics />
       </body>
     </html>
   );
