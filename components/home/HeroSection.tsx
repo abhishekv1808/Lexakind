@@ -18,11 +18,11 @@ const SERVICES = [
   "Court-Prepared Documentation",
 ];
 
-/** Overlapping client avatars — initials placeholders until photos are added */
+/** Overlapping client avatars — real user photos */
 const CLIENTS = [
-  { initials: "RM", tone: "bg-[#3a3a40]" },
-  { initials: "AD", tone: "bg-[#4a4a52]" },
-  { initials: "KS", tone: "bg-ora" },
+  { initials: "RM", image: "/images/testimonials/rohit-menon.png" },
+  { initials: "AD", image: "/images/testimonials/anita-desai.png" },
+  { initials: "KS", image: "/images/testimonials/karan-shah.png" },
 ];
 
 const ease = [0.22, 0.61, 0.36, 1] as const;
@@ -234,9 +234,15 @@ export function HeroSection() {
                   {CLIENTS.map((c) => (
                     <div
                       key={c.initials}
-                      className={`flex h-11 w-11 items-center justify-center rounded-full ring-2 ring-white/25 ${c.tone} font-body text-[12px] font-medium text-white`}
+                      className="relative h-11 w-11 overflow-hidden rounded-full ring-2 ring-white/25"
                     >
-                      {c.initials}
+                      <Image
+                        src={c.image}
+                        alt={c.initials}
+                        fill
+                        sizes="44px"
+                        className="object-cover"
+                      />
                     </div>
                   ))}
                 </div>

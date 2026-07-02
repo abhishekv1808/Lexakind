@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Phone, Mail, MapPin, Clock, Scale, ArrowUp } from 'lucide-react';
+import Image from 'next/image';
+import { Phone, Mail, MapPin, Clock, ArrowUp } from 'lucide-react';
 import { SITE, FOOTER_LINKS, WHATSAPP_LINK } from '@/lib/constants';
 
 function ColumnHeading({ children }: { children: React.ReactNode }) {
@@ -88,13 +89,14 @@ export function Footer() {
         {/* Top brand row */}
         <div className="flex flex-col gap-8 border-b border-white/10 pb-10 pt-16 md:flex-row md:items-center md:justify-between">
           <div className="max-w-[420px]">
-            <Link href="/" className="flex items-center gap-2.5">
-              <span className="flex h-10 w-10 items-center justify-center rounded-[4px] bg-ora text-white">
-                <Scale size={20} />
-              </span>
-              <span className="font-display text-[26px] font-bold tracking-[0.04em] text-white">
-                LEXAKIND
-              </span>
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/lexakind-logo.png"
+                alt="Lexakind"
+                width={180}
+                height={36}
+                className="h-6 w-auto"
+              />
             </Link>
             <p className="mt-4 font-body text-[13px] font-light leading-relaxed text-[#8a8d93]">
               Connecting you with 4,000+ verified advocates across India —
