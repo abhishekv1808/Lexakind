@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Star, Quote } from 'lucide-react';
+import Image from 'next/image';
 import { SectionLabel } from '@/components/shared/SectionLabel';
 import { cn } from '@/lib/utils';
 
@@ -12,6 +13,7 @@ interface Testimonial {
   role: string;
   matter: string;
   rating: number;
+  image: string;
 }
 
 const TESTIMONIALS: Testimonial[] = [
@@ -22,6 +24,7 @@ const TESTIMONIALS: Testimonial[] = [
     role: 'Property owner, Bengaluru',
     matter: 'Property dispute',
     rating: 5,
+    image: '/images/testimonials/rohit-menon.png',
   },
   {
     quote:
@@ -30,6 +33,7 @@ const TESTIMONIALS: Testimonial[] = [
     role: 'NRI client, Dubai',
     matter: 'Inheritance (NRI)',
     rating: 5,
+    image: '/images/testimonials/anita-desai.png',
   },
   {
     quote:
@@ -38,6 +42,7 @@ const TESTIMONIALS: Testimonial[] = [
     role: 'Founder, FinTech startup',
     matter: 'Startup incorporation',
     rating: 5,
+    image: '/images/testimonials/karan-shah.png',
   },
   {
     quote:
@@ -46,6 +51,7 @@ const TESTIMONIALS: Testimonial[] = [
     role: 'Homebuyer, Bengaluru',
     matter: 'RERA possession delay',
     rating: 5,
+    image: '/images/testimonials/sneha-reddy.png',
   },
   {
     quote:
@@ -54,6 +60,7 @@ const TESTIMONIALS: Testimonial[] = [
     role: 'Business owner, Bengaluru',
     matter: 'Cheque bounce recovery',
     rating: 5,
+    image: '/images/testimonials/imtiaz-ali.png',
   },
 ];
 
@@ -159,9 +166,15 @@ export function TestimonialsSection() {
                 </blockquote>
 
                 <div className="mt-8 flex items-center gap-4 border-t border-white/10 pt-6">
-                  <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-ora font-display text-[16px] font-semibold text-white">
-                    {initials(current.name)}
-                  </span>
+                  <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-ora/50">
+                    <Image
+                      src={current.image}
+                      alt={current.name}
+                      fill
+                      className="object-cover"
+                      sizes="48px"
+                    />
+                  </div>
                   <div>
                     <p className="font-display text-[16px] font-semibold text-white">
                       {current.name}
@@ -196,16 +209,22 @@ export function TestimonialsSection() {
                       : 'border-white/10 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.04]',
                   )}
                 >
-                  <span
+                  <div
                     className={cn(
-                      'flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full font-display text-[13px] font-semibold transition-colors',
+                      'relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-full transition-all',
                       isActive
-                        ? 'bg-ora text-white'
-                        : 'bg-white/10 text-white/70',
+                        ? 'ring-2 ring-ora/60'
+                        : 'ring-1 ring-white/15',
                     )}
                   >
-                    {initials(t.name)}
-                  </span>
+                    <Image
+                      src={t.image}
+                      alt={t.name}
+                      fill
+                      className="object-cover"
+                      sizes="40px"
+                    />
+                  </div>
                   <span className="min-w-0 flex-1">
                     <span
                       className={cn(
