@@ -65,13 +65,15 @@ export const serviceSchema = (pa: {
   name: string;
   slug: string;
   description: string;
+  /** Path override for nested pages (e.g. service detail pages). */
+  path?: string;
 }) => ({
   '@context': 'https://schema.org',
   '@type': 'Service',
   serviceType: pa.name,
   name: pa.name,
   description: pa.description,
-  url: `${SITE.url}/practice-areas/${pa.slug}`,
+  url: `${SITE.url}${pa.path ?? `/practice-areas/${pa.slug}`}`,
   provider: { '@type': 'LegalService', name: SITE.name, url: SITE.url },
   areaServed: { '@type': 'Country', name: 'India' },
 });

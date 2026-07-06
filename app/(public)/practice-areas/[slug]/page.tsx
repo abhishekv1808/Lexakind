@@ -23,6 +23,7 @@ import {
 } from '@/lib/schema';
 import { PRACTICE_AREAS as PA_SERVICES } from '@/lib/services-data';
 import { PRACTICE_AREAS as PA_META } from '@/lib/practice-areas';
+import { hasServicePage } from '@/lib/service-content';
 
 export const revalidate = 86400; // ISR — 24h
 
@@ -247,30 +248,59 @@ export default async function PracticeAreaPage({
                     </span>
                   </div>
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                    {group.services.map((service) => (
-                      <div
-                        key={service.slug}
-                        id={service.slug}
-                        className="group relative scroll-mt-28 overflow-hidden rounded-[4px] border border-wht-3 bg-white p-5 transition-shadow hover:shadow-sm"
-                      >
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 origin-left scale-x-0 bg-ora transition-transform duration-300 group-hover:scale-x-100" />
-                        <div className="flex items-start justify-between gap-3">
-                          <h3 className="font-display text-[15px] font-semibold leading-snug text-blk">
-                            {service.name}
-                          </h3>
-                          <Link
-                            href="#enquire"
-                            aria-label={`Enquire about ${service.name}`}
-                            className="mt-0.5 flex-shrink-0 text-muted-2 transition-colors hover:text-ora"
-                          >
-                            <ArrowUpRight size={16} />
-                          </Link>
+                    {group.services.map((service) => {
+                      // Services with enriched content get their own page;
+                      // the rest anchor to the enquiry form below.
+                      const detailHref = hasServicePage(pa.slug, service.slug)
+                        ? `/practice-areas/${pa.slug}/${service.slug}`
+                        : null;
+                      return (
+                        <div
+                          key={service.slug}
+                          id={service.slug}
+                          className="group relative scroll-mt-28 overflow-hidden rounded-[4px] border border-wht-3 bg-white p-5 transition-shadow hover:shadow-sm"
+                        >
+                          <div className="absolute bottom-0 left-0 right-0 h-0.5 origin-left scale-x-0 bg-ora transition-transform duration-300 group-hover:scale-x-100" />
+                          <div className="flex items-start justify-between gap-3">
+                            <h3 className="font-display text-[15px] font-semibold leading-snug text-blk">
+                              {detailHref ? (
+                                <Link
+                                  href={detailHref}
+                                  className="transition-colors hover:text-ora"
+                                >
+                                  {service.name}
+                                </Link>
+                              ) : (
+                                service.name
+                              )}
+                            </h3>
+                            <Link
+                              href={detailHref ?? '#enquire'}
+                              aria-label={
+                                detailHref
+                                  ? `Learn more about ${service.name}`
+                                  : `Enquire about ${service.name}`
+                              }
+                              className="mt-0.5 flex-shrink-0 text-muted-2 transition-colors hover:text-ora"
+                            >
+                              <ArrowUpRight size={16} />
+                            </Link>
+                          </div>
+                          <p className="mt-1.5 font-body text-[12px] font-light leading-relaxed text-muted">
+                            {service.description}
+                          </p>
+                          {detailHref && (
+                            <Link
+                              href={detailHref}
+                              className="mt-3 inline-flex items-center gap-1.5 font-body text-[12px] font-medium text-ora"
+                            >
+                              Process, documents &amp; FAQs
+                              <ArrowUpRight size={12} />
+                            </Link>
+                          )}
                         </div>
-                        <p className="mt-1.5 font-body text-[12px] font-light leading-relaxed text-muted">
-                          {service.description}
-                        </p>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               ))}

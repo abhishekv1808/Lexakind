@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { PRACTICE_AREAS } from '@/lib/services-data';
+import { SERVICE_CONTENT } from '@/lib/service-content';
 import { getAllPosts } from '@/lib/blog';
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.lexakind.com';
@@ -38,6 +39,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  const services: MetadataRoute.Sitemap = SERVICE_CONTENT.map((s) => ({
+    url: `${BASE}/practice-areas/${s.paSlug}/${s.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
   const posts: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
     url: `${BASE}/resources/blog/${post.slug}`,
     lastModified: new Date(post.date),
@@ -45,5 +53,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticEntries, ...practiceAreas, ...posts];
+  return [...staticEntries, ...practiceAreas, ...services, ...posts];
 }
