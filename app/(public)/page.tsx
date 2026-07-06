@@ -2,6 +2,7 @@ import { HeroSection } from '@/components/home/HeroSection';
 import { ServicesMarquee } from '@/components/home/ServicesMarquee';
 import { TrustBar } from '@/components/home/TrustBar';
 import { WhySection } from '@/components/home/WhySection';
+import { CredentialsBar } from '@/components/home/CredentialsBar';
 import { JusticeScaleReveal } from '@/components/justice/JusticeScaleReveal';
 import { AboutSection } from '@/components/home/AboutSection';
 import { WhyChooseUs } from '@/components/home/WhyChooseUs';
@@ -35,6 +36,7 @@ export default function HomePage() {
       <HeroSection />
       <TrustBar />
       <WhySection />
+      <CredentialsBar />
       <JusticeScaleReveal />
       <AboutSection />
       <WhyChooseUs />

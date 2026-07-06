@@ -34,22 +34,61 @@ function getScalesGlow(progress: number): number {
   return Math.max(0, 1 - progress * 4);
 }
 
-// One-line brand statements that float through the empty central space
-// as the user scrolls — independent of the beat cards on the left.
+// Brand statements that float through the empty central space as the user
+// scrolls — independent of the beat cards on the left. Each is a small
+// composition: numbered kicker row → two-line headline → supporting caption.
 // `top`/`left` keep them in the dark band between the card and the statue.
 const STATEMENTS: {
+  kicker: string;
   lead: string;
   accent: string;
+  caption: string;
   top: string;
   left: string;
   start: number;
   end: number;
+  cta?: boolean;
 }[] = [
-  { lead: '4,000+ advocates,', accent: 'one standard.', top: '38%', left: '14%', start: 0.02, end: 0.22 },
-  { lead: 'Transparent pricing,', accent: 'no surprises.', top: '38%', left: '14%', start: 0.2, end: 0.4 },
-  { lead: '160+ legal services,', accent: 'one platform.', top: '38%', left: '14%', start: 0.38, end: 0.58 },
-  { lead: 'Pan-India reach,', accent: 'personal care.', top: '38%', left: '14%', start: 0.56, end: 0.76 },
-  { lead: 'Matched to an advocate', accent: 'within 24 hours.', top: '38%', left: '14%', start: 0.74, end: 0.98 },
+  {
+    kicker: 'Network',
+    lead: '4,000+ advocates,',
+    accent: 'one standard.',
+    caption:
+      'Every advocate is bar-verified and background-checked before they ever take a case.',
+    top: '32%', left: '14%', start: 0.02, end: 0.22,
+  },
+  {
+    kicker: 'Pricing',
+    lead: 'Transparent pricing,',
+    accent: 'no surprises.',
+    caption:
+      'Itemised quotes upfront — you know the full cost before you commit to anything.',
+    top: '32%', left: '14%', start: 0.2, end: 0.4,
+  },
+  {
+    kicker: 'Coverage',
+    lead: '160+ legal services,',
+    accent: 'one platform.',
+    caption:
+      'From property disputes to corporate counsel — handled end-to-end in one place.',
+    top: '32%', left: '14%', start: 0.38, end: 0.58,
+  },
+  {
+    kicker: 'Reach',
+    lead: 'Pan-India reach,',
+    accent: 'personal care.',
+    caption:
+      'Advocates in every major court, with a single point of contact for your case.',
+    top: '32%', left: '14%', start: 0.56, end: 0.76,
+  },
+  {
+    kicker: 'Speed',
+    lead: 'Matched to an advocate',
+    accent: 'within 24 hours.',
+    caption: 'Tell us about your matter today — we take care of the rest.',
+    top: '32%', left: '14%', start: 0.74, end: 0.98,
+    cta: true,
+  },
 ];
 
 export function JusticeScaleReveal() {
@@ -180,30 +219,68 @@ export function JusticeScaleReveal() {
           0{activeBeatIndex + 1}
         </div>
 
-        {/* Floating one-line statements — fill the central negative space */}
+        {/* Floating statements — fill the central negative space.
+            Each layer translates at a slightly different rate for depth. */}
         <div className="pointer-events-none absolute inset-0 max-md:hidden">
           {STATEMENTS.map((s, i) => {
             const op = getBeatOpacity(progress, s.start, s.end);
             const dy = getBeatTranslateY(progress, s.start, s.end);
+            if (op === 0) return null;
             return (
               <div
                 key={i}
-                className="absolute w-[560px]"
-                style={{
-                  left: s.left,
-                  top: s.top,
-                  opacity: op,
-                  transform: `translateY(${dy}px)`,
-                }}
+                className="absolute w-[600px]"
+                style={{ left: s.left, top: s.top, opacity: op }}
               >
-                <div className="mb-4 h-px w-10 bg-ora" />
-                <p
-                  className="font-display font-semibold leading-[1.12] tracking-tight text-white/90"
-                  style={{ fontSize: 'clamp(34px, 4vw, 58px)' }}
+                {/* Kicker row — index · rule · label */}
+                <div
+                  className="flex items-center gap-3"
+                  style={{ transform: `translateY(${dy * 0.5}px)` }}
                 >
-                  {s.lead}{' '}
+                  <span className="font-mono text-[11px] font-medium tracking-[0.2em] text-ora">
+                    0{i + 1}
+                  </span>
+                  <span className="h-px w-10 bg-gradient-to-r from-ora to-ora/20" />
+                  <span className="font-body text-[11px] font-medium uppercase tracking-[0.22em] text-white/40">
+                    {s.kicker}
+                  </span>
+                </div>
+
+                {/* Headline — lead and accent stacked for a stronger block */}
+                <p
+                  className="mt-5 font-display font-semibold leading-[1.08] tracking-tight text-white/95"
+                  style={{
+                    fontSize: 'clamp(34px, 4vw, 58px)',
+                    transform: `translateY(${dy}px)`,
+                  }}
+                >
+                  {s.lead}
+                  <br />
                   <span className="italic text-ora">{s.accent}</span>
                 </p>
+
+                {/* Supporting caption — trails slightly for parallax depth */}
+                <p
+                  className="mt-5 max-w-[400px] border-l border-ora/30 pl-4 font-body text-[14px] leading-relaxed text-white/55"
+                  style={{ transform: `translateY(${dy * 1.6}px)` }}
+                >
+                  {s.caption}
+                </p>
+
+                {/* CTA — only on the closing statement */}
+                {s.cta && (
+                  <div style={{ transform: `translateY(${dy * 1.9}px)` }}>
+                    <Link
+                      href="/consultation"
+                      className="mt-7 inline-flex items-center gap-2 rounded-[3px] bg-ora px-7 py-3.5 font-body text-[13px] font-medium tracking-[0.02em] text-white transition-colors duration-200 hover:bg-ora-h"
+                      style={{
+                        pointerEvents: op > 0.5 ? 'auto' : 'none',
+                      }}
+                    >
+                      Book a Free Consultation
+                    </Link>
+                  </div>
+                )}
               </div>
             );
           })}
