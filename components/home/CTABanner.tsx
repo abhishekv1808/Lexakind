@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import { ArrowRight, Phone, Star } from 'lucide-react';
+import { ConsultationTrigger } from '@/components/consultation/ConsultationTrigger';
 import { SITE } from '@/lib/constants';
 
 export function CTABanner() {
@@ -67,13 +67,10 @@ export function CTABanner() {
           </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Link
-              href="/consultation"
-              className="inline-flex items-center gap-2 rounded-[3px] bg-ora px-7 py-3.5 font-body text-[14px] font-semibold tracking-[0.02em] text-white transition-colors hover:bg-ora-h"
-            >
+            <ConsultationTrigger className="inline-flex items-center gap-2 rounded-[3px] bg-ora px-7 py-3.5 font-body text-[14px] font-semibold tracking-[0.02em] text-white transition-colors hover:bg-ora-h">
               Book a Consultation
               <ArrowRight size={16} />
-            </Link>
+            </ConsultationTrigger>
             <a
               href={`tel:${SITE.phone}`}
               className="inline-flex items-center gap-2 rounded-[3px] border border-white/25 px-6 py-3.5 font-body text-[14px] font-medium tracking-[0.02em] text-white transition-colors hover:border-white"

@@ -4,6 +4,7 @@ import { Footer } from '@/components/layout/Footer';
 import { WhatsAppButton } from '@/components/layout/WhatsAppButton';
 import { MobileCTABar } from '@/components/layout/MobileCTABar';
 import { ExitIntentModal } from '@/components/shared/ExitIntentModal';
+import { ConsultationModalProvider } from '@/components/consultation/ConsultationModal';
 
 export default function PublicLayout({
   children,
@@ -11,7 +12,7 @@ export default function PublicLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <ConsultationModalProvider>
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[70] focus:bg-ora focus:text-white focus:px-4 focus:py-2 focus:rounded-[3px]"
@@ -37,6 +38,6 @@ export default function PublicLayout({
           },
         }}
       />
-    </>
+    </ConsultationModalProvider>
   );
 }

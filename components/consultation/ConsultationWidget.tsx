@@ -71,8 +71,17 @@ function toISO(d: Date) {
   return d.toISOString().slice(0, 10);
 }
 
-export function ConsultationWidget() {
-  const [step, setStep] = useState(0);
+export function ConsultationWidget({
+  defaultPracticeArea = '',
+  onDone,
+}: {
+  /** Practice-area slug to preselect (e.g. from a practice-area page CTA). */
+  defaultPracticeArea?: string;
+  /** Called once the booking has been submitted successfully. */
+  onDone?: () => void;
+} = {}) {
+  // If a practice area is preselected, skip straight to scheduling.
+  const [step, setStep] = useState(defaultPracticeArea ? 1 : 0);
   const [done, setDone] = useState(false);
 
   const {
@@ -86,7 +95,12 @@ export function ConsultationWidget() {
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     mode: 'onTouched',
-    defaultValues: { practiceArea: '', date: '', timeSlot: '', message: '' },
+    defaultValues: {
+      practiceArea: defaultPracticeArea,
+      date: '',
+      timeSlot: '',
+      message: '',
+    },
   });
 
   const values = watch();
@@ -118,6 +132,7 @@ export function ConsultationWidget() {
       });
       toast.success('Booking request received!');
       setDone(true);
+      onDone?.();
     } catch {
       toast.error('Something went wrong. Please try again or call us.');
     }
