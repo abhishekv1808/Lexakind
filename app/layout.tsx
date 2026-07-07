@@ -28,7 +28,13 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
+    <html
+      lang="en"
+      className={`${displayFont.variable} ${bodyFont.variable}`}
+      // Browser extensions (tab managers, dark-mode tools) inject attributes
+      // into <html> before React hydrates; suppress that one-level mismatch.
+      suppressHydrationWarning
+    >
       <head>
         {/*
           Hero video preload — UNCOMMENT once /public/videos/hero-lawyer.mp4 exists.
