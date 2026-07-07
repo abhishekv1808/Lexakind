@@ -24,8 +24,9 @@ export const TEAM: Advocate[] = [
     cases: '1,200+ cases',
     location: 'Bengaluru',
     languages: ['English', 'Kannada', 'Hindi'],
-    bio: 'A formidable trial advocate known for meticulous case preparation and a calm courtroom presence. Ananya leads our criminal defence practice and has secured bail and acquittals in some of the city’s most complex matters.',
+    bio: 'A formidable trial advocate known for meticulous case preparation and a calm courtroom presence. Ananya leads our criminal defence practice and has secured bail and acquittals in some of the city\'s most complex matters.',
     initials: 'AR',
+    image: '/images/team/ananya-rao.png',
   },
   {
     id: 'vikram-shenoy',
@@ -38,6 +39,7 @@ export const TEAM: Advocate[] = [
     languages: ['English', 'Konkani', 'Hindi'],
     bio: 'Vikram advises founders, boards and investors through incorporations, fundraises and exits. He turns dense commercial risk into clear, commercial decisions — and has closed transactions across India and abroad.',
     initials: 'VS',
+    image: '/images/team/vikram-shenoy.png',
   },
   {
     id: 'priya-nair',
@@ -50,6 +52,7 @@ export const TEAM: Advocate[] = [
     languages: ['English', 'Malayalam', 'Tamil'],
     bio: 'Priya brings empathy and precision to the most personal disputes. She is known for resolving matrimonial matters with discretion — favouring settlement where possible, and fighting hard where it counts.',
     initials: 'PN',
+    image: '/images/team/priya-nair.png',
   },
   {
     id: 'rohan-mehta',
@@ -62,6 +65,7 @@ export const TEAM: Advocate[] = [
     languages: ['English', 'Hindi', 'Gujarati'],
     bio: 'Rohan protects homebuyers and developers alike — from possession-delay claims before RERA to airtight title verification. His diligence has saved clients from costly property disputes before they begin.',
     initials: 'RM',
+    image: '/images/team/rohan-mehta.png',
   },
   {
     id: 'imran-khan',
@@ -74,5 +78,6 @@ export const TEAM: Advocate[] = [
     languages: ['English', 'Urdu', 'Hindi'],
     bio: 'Imran is a relentless civil litigator with a sharp eye for procedure. He recovers what is owed to clients through suits, injunctions and Section 138 actions, and rarely lets a matter drift.',
     initials: 'IK',
+    image: '/images/team/imran-khan.png',
   },
 ];
