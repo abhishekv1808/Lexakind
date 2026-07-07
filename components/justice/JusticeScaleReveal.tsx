@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useReducedMotion } from 'framer-motion';
 import { useScrollProgress } from '@/hooks/useScrollProgress';
 import { JusticeCanvasBase } from './JusticeCanvasBase';
-import { JUSTICE_BEATS, SCROLL_MULTIPLIER } from '@/lib/justice-content';
+import { JUSTICE_BEATS } from '@/lib/justice-content';
 
 // ── Animation helpers ─────────────────────────────────────────
 const FADE = 0.07; // 7% of scroll = crossfade window
@@ -32,6 +32,45 @@ function getBeatTranslateY(
 // Warm glow under the scales during the close-up; fades as the camera pulls back.
 function getScalesGlow(progress: number): number {
   return Math.max(0, 1 - progress * 4);
+}
+
+function easeOutCubic(t: number): number {
+  return 1 - Math.pow(1 - t, 3);
+}
+
+/**
+ * Per-element reveal phase inside a statement's scroll window.
+ * `tIn` runs 0→1 while entering, `tOut` 0→1 while exiting — both eased.
+ * `delay` (in scroll progress units) staggers elements into a cascade:
+ * first in, first out.
+ */
+function getPhase(
+  progress: number,
+  start: number,
+  end: number,
+  delay = 0,
+): { tIn: number; tOut: number } {
+  const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+  return {
+    tIn: easeOutCubic(clamp01((progress - (start + delay)) / FADE)),
+    tOut: easeOutCubic(clamp01((progress - (end - FADE + delay)) / FADE)),
+  };
+}
+
+/** Headline lines rise out of a clipped mask (film-title reveal). */
+function maskStyle(p: { tIn: number; tOut: number }): React.CSSProperties {
+  return {
+    opacity: p.tIn * (1 - p.tOut),
+    transform: `translateY(${(1 - p.tIn) * 110 - p.tOut * 110}%)`,
+  };
+}
+
+/** Softer drift for supporting elements (caption, CTA). */
+function driftStyle(p: { tIn: number; tOut: number }): React.CSSProperties {
+  return {
+    opacity: p.tIn * (1 - p.tOut),
+    transform: `translateY(${(1 - p.tIn) * 26 - p.tOut * 26}px)`,
+  };
 }
 
 // Brand statements that float through the empty central space as the user
@@ -150,15 +189,17 @@ export function JusticeScaleReveal() {
   return (
     <div
       ref={containerRef}
-      style={{ height: `${(SCROLL_MULTIPLIER + 1) * 100}vh` }}
-      className="relative"
+      // Mobile gets a shorter run (500vh) so the pacing doesn't drag on touch;
+      // desktop keeps the full (SCROLL_MULTIPLIER + 1) * 100vh = 700vh ride.
+      className="relative h-[500vh] md:h-[700vh]"
     >
       {/* STICKY VIEWPORT — pinned while the user scrolls the outer div */}
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-blk">
-        {/* Full-bleed canvas */}
+        {/* Full-bleed canvas — nudged right on mobile only (scaled up
+            slightly so the shift never reveals the section background). */}
         <JusticeCanvasBase
           progress={progress}
-          className="absolute inset-0 h-full w-full"
+          className="absolute inset-0 h-full w-full max-md:translate-x-[6%] max-md:scale-[1.1]"
           objectPosition="right"
         />
 
@@ -219,65 +260,96 @@ export function JusticeScaleReveal() {
           0{activeBeatIndex + 1}
         </div>
 
-        {/* Floating statements — fill the central negative space.
-            Each layer translates at a slightly different rate for depth. */}
-        <div className="pointer-events-none absolute inset-0 max-md:hidden">
+        {/* Mobile scrim — anchors the statements to a readable bottom zone */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[48%] bg-gradient-to-t from-[#161618] via-[#161618]/65 to-transparent md:hidden" />
+
+        {/* Floating statements — cinematic line-mask reveals cascading
+            through the central negative space: kicker → headline lines →
+            caption → CTA, first in, first out. On mobile they anchor to
+            the bottom of the frame over the scrim. */}
+        <div className="pointer-events-none absolute inset-0">
           {STATEMENTS.map((s, i) => {
-            const op = getBeatOpacity(progress, s.start, s.end);
-            const dy = getBeatTranslateY(progress, s.start, s.end);
-            if (op === 0) return null;
+            if (progress <= s.start || progress >= s.end) return null;
+            const kicker = getPhase(progress, s.start, s.end, 0);
+            const line1 = getPhase(progress, s.start, s.end, 0.006);
+            const line2 = getPhase(progress, s.start, s.end, 0.012);
+            const cap = getPhase(progress, s.start, s.end, 0.02);
+            const cta = getPhase(progress, s.start, s.end, 0.026);
+            const ctaOpacity = cta.tIn * (1 - cta.tOut);
             return (
               <div
                 key={i}
-                className="absolute w-[600px]"
-                style={{ left: s.left, top: s.top, opacity: op }}
+                className="absolute max-md:inset-x-5 max-md:bottom-[12%] md:left-[var(--st-left)] md:top-[var(--st-top)] md:w-[620px]"
+                style={
+                  {
+                    '--st-left': s.left,
+                    '--st-top': s.top,
+                  } as React.CSSProperties
+                }
               >
-                {/* Kicker row — index · rule · label */}
+                {/* Kicker row — counter · self-drawing rule · label */}
                 <div
                   className="flex items-center gap-3"
-                  style={{ transform: `translateY(${dy * 0.5}px)` }}
+                  style={{ opacity: kicker.tIn * (1 - kicker.tOut) }}
                 >
                   <span className="font-mono text-[11px] font-medium tracking-[0.2em] text-ora">
                     0{i + 1}
+                    <span className="ml-1 text-white/25">/ 0{STATEMENTS.length}</span>
                   </span>
-                  <span className="h-px w-10 bg-gradient-to-r from-ora to-ora/20" />
-                  <span className="font-body text-[11px] font-medium uppercase tracking-[0.22em] text-white/40">
+                  <span
+                    className="h-px w-12 origin-left bg-gradient-to-r from-ora to-ora/10"
+                    style={{
+                      transform: `scaleX(${kicker.tIn * (1 - kicker.tOut)})`,
+                    }}
+                  />
+                  <span className="font-body text-[11px] font-medium uppercase tracking-[0.24em] text-white/45">
                     {s.kicker}
                   </span>
                 </div>
 
-                {/* Headline — lead and accent stacked for a stronger block */}
-                <p
-                  className="mt-5 font-display font-semibold leading-[1.08] tracking-tight text-white/95"
-                  style={{
-                    fontSize: 'clamp(34px, 4vw, 58px)',
-                    transform: `translateY(${dy}px)`,
-                  }}
-                >
-                  {s.lead}
-                  <br />
-                  <span className="italic text-ora">{s.accent}</span>
-                </p>
+                {/* Headline — each line rises out of its own mask */}
+                <h3 className="mt-3 font-display text-[26px] font-semibold tracking-tight sm:text-[30px] md:mt-5 md:text-[clamp(36px,4.2vw,62px)]">
+                  <span className="block overflow-hidden">
+                    <span
+                      className="block leading-[1.14] text-white/95"
+                      style={maskStyle(line1)}
+                    >
+                      {s.lead}
+                    </span>
+                  </span>
+                  <span className="block overflow-hidden">
+                    <span
+                      className="block bg-gradient-to-r from-ora-h via-ora to-ora-d bg-clip-text pr-2 italic leading-[1.14] text-transparent"
+                      style={maskStyle(line2)}
+                    >
+                      {s.accent}
+                    </span>
+                  </span>
+                </h3>
 
-                {/* Supporting caption — trails slightly for parallax depth */}
+                {/* Supporting caption — drifts in after the headline */}
                 <p
-                  className="mt-5 max-w-[400px] border-l border-ora/30 pl-4 font-body text-[14px] leading-relaxed text-white/55"
-                  style={{ transform: `translateY(${dy * 1.6}px)` }}
+                  className="mt-4 max-w-[420px] border-l-2 border-ora/40 pl-4 font-body text-[12px] leading-relaxed text-white/60 md:mt-6 md:text-[14px]"
+                  style={driftStyle(cap)}
                 >
                   {s.caption}
                 </p>
 
                 {/* CTA — only on the closing statement */}
                 {s.cta && (
-                  <div style={{ transform: `translateY(${dy * 1.9}px)` }}>
+                  <div style={driftStyle(cta)}>
                     <Link
                       href="/consultation"
-                      className="mt-7 inline-flex items-center gap-2 rounded-[3px] bg-ora px-7 py-3.5 font-body text-[13px] font-medium tracking-[0.02em] text-white transition-colors duration-200 hover:bg-ora-h"
-                      style={{
-                        pointerEvents: op > 0.5 ? 'auto' : 'none',
-                      }}
+                      className="group/cta mt-5 inline-flex items-center gap-2.5 rounded-[3px] bg-ora px-5 py-3 font-body text-[12px] font-medium tracking-[0.02em] text-white transition-colors duration-200 hover:bg-ora-h md:mt-8 md:px-7 md:py-3.5 md:text-[13px]"
+                      style={{ pointerEvents: ctaOpacity > 0.5 ? 'auto' : 'none' }}
                     >
                       Book a Free Consultation
+                      <span
+                        aria-hidden="true"
+                        className="transition-transform duration-200 group-hover/cta:translate-x-1"
+                      >
+                        →
+                      </span>
                     </Link>
                   </div>
                 )}
