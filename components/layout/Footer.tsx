@@ -26,10 +26,22 @@ function FooterLink({ href, label }: { href: string; label: string }) {
   );
 }
 
-const RESOURCE_LINKS = [
-  { label: 'Legal Insights', href: '/resources/blog' },
-  { label: 'Free Legal Guide', href: '/resources/blog' },
-  { label: 'Book a Consultation', href: '/consultation' },
+// High-demand services with dedicated pages — useful shortcuts for users
+// and strong internal links for SEO.
+const POPULAR_SERVICES = [
+  { label: 'Mutual Consent Divorce', href: '/practice-areas/family-law/mutual-consent-divorce' },
+  { label: 'Anticipatory Bail', href: '/practice-areas/criminal-law/anticipatory-bail' },
+  { label: 'Property Title Check', href: '/practice-areas/property-law/title-check' },
+  { label: 'Pvt Ltd Registration', href: '/practice-areas/corporate-law/pvt-ltd-incorporation' },
+  { label: 'Cheque Bounce Case', href: '/practice-areas/real-estate-rera/cheque-bounce' },
+  { label: 'Legal Notice', href: '/practice-areas/consultation/legal-notice' },
+  { label: 'Rent Agreement', href: '/practice-areas/property-law/rent-agreement' },
+];
+
+const BRAND_STATS = [
+  { num: '4,000+', label: 'Verified advocates' },
+  { num: '160+', label: 'Legal services' },
+  { num: '50K+', label: 'Consultations' },
 ];
 
 const SOCIALS = [
@@ -68,7 +80,9 @@ const CONTACT = [
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t-2 border-ora bg-blk text-white">
+    <footer className="relative overflow-hidden bg-blk text-white">
+      {/* Gradient top accent */}
+      <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-ora via-ora/40 to-transparent" />
       {/* Top inner glow */}
       <div
         className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[640px] -translate-x-1/2 opacity-50"
@@ -103,6 +117,23 @@ export function Footer() {
               transparent pricing, end-to-end case tracking, and counsel you can
               trust.
             </p>
+
+            {/* Brand stats */}
+            <div className="mt-6 flex items-center gap-6">
+              {BRAND_STATS.map((s, i) => (
+                <div key={s.label} className="flex items-center gap-6">
+                  {i > 0 && <span className="h-8 w-px bg-white/10" />}
+                  <div>
+                    <p className="font-display text-[18px] font-bold leading-none text-ora">
+                      {s.num}
+                    </p>
+                    <p className="mt-1 font-body text-[10px] font-light uppercase tracking-[0.1em] text-[#6b6e74]">
+                      {s.label}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="flex flex-col items-start gap-3 md:items-end">
@@ -135,7 +166,7 @@ export function Footer() {
         </div>
 
         {/* Link columns */}
-        <div className="grid grid-cols-2 gap-10 py-14 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-12 py-14 lg:grid-cols-[1fr_1fr_1.1fr_1.5fr]">
           <div>
             <ColumnHeading>Company</ColumnHeading>
             <ul className="space-y-3.5">
@@ -159,60 +190,71 @@ export function Footer() {
           </div>
 
           <div>
-            <ColumnHeading>Resources</ColumnHeading>
+            <ColumnHeading>Popular Services</ColumnHeading>
             <ul className="space-y-3.5">
-              {RESOURCE_LINKS.map((link) => (
-                <li key={link.label}>
+              {POPULAR_SERVICES.map((link) => (
+                <li key={link.href}>
                   <FooterLink href={link.href} label={link.label} />
                 </li>
               ))}
             </ul>
           </div>
 
+          {/* Contact card */}
           <div className="col-span-2 lg:col-span-1">
-            <ColumnHeading>Get in touch</ColumnHeading>
-            <ul className="space-y-4">
-              {CONTACT.map((row) => {
-                const inner = (
-                  <>
-                    <span className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-[3px] bg-blk-3 text-ora transition-colors group-hover:bg-ora group-hover:text-white">
-                      <row.icon size={15} />
-                    </span>
-                    <span className="font-body text-[13px] font-light leading-relaxed text-[#8a8d93] transition-colors group-hover:text-white">
-                      {row.value}
-                    </span>
-                  </>
-                );
-                return (
-                  <li key={row.value}>
-                    {row.href ? (
-                      <a
-                        href={row.href}
-                        target={row.href.startsWith('http') ? '_blank' : undefined}
-                        rel={
-                          row.href.startsWith('http')
-                            ? 'noopener noreferrer'
-                            : undefined
-                        }
-                        className="group flex items-start gap-3"
-                      >
-                        {inner}
-                      </a>
-                    ) : (
-                      <div className="group flex items-start gap-3">{inner}</div>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-            <a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-2 rounded-[3px] bg-ora px-4 py-2.5 font-body text-[13px] font-medium text-white transition-colors hover:bg-ora-h"
-            >
-              Chat on WhatsApp
-            </a>
+            <div className="rounded-[6px] border border-white/[0.08] bg-white/[0.03] p-6">
+              <ColumnHeading>Get in touch</ColumnHeading>
+              <ul className="space-y-4">
+                {CONTACT.map((row) => {
+                  const inner = (
+                    <>
+                      <span className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-[3px] bg-blk-3 text-ora transition-colors group-hover:bg-ora group-hover:text-white">
+                        <row.icon size={15} />
+                      </span>
+                      <span className="font-body text-[13px] font-light leading-relaxed text-[#8a8d93] transition-colors group-hover:text-white">
+                        {row.value}
+                      </span>
+                    </>
+                  );
+                  return (
+                    <li key={row.value}>
+                      {row.href ? (
+                        <a
+                          href={row.href}
+                          target={row.href.startsWith('http') ? '_blank' : undefined}
+                          rel={
+                            row.href.startsWith('http')
+                              ? 'noopener noreferrer'
+                              : undefined
+                          }
+                          className="group flex items-start gap-3"
+                        >
+                          {inner}
+                        </a>
+                      ) : (
+                        <div className="group flex items-start gap-3">{inner}</div>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className="mt-6 flex flex-wrap gap-2.5 border-t border-white/[0.07] pt-5">
+                <a
+                  href={WHATSAPP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex flex-1 items-center justify-center gap-2 rounded-[3px] bg-ora px-4 py-2.5 font-body text-[13px] font-medium text-white transition-colors hover:bg-ora-h"
+                >
+                  Chat on WhatsApp
+                </a>
+                <Link
+                  href="/consultation"
+                  className="inline-flex flex-1 items-center justify-center rounded-[3px] border border-white/15 px-4 py-2.5 font-body text-[13px] font-medium text-white transition-colors hover:border-ora hover:text-ora"
+                >
+                  Book consultation
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
