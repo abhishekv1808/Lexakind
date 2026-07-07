@@ -36,7 +36,7 @@ export function CredentialsBar() {
       <div className="max-w-6xl mx-auto">
         <RevealOnScroll className="flex flex-col items-center text-center">
           <SectionLabel className="justify-center">Trusted &amp; verified</SectionLabel>
-          <h2 className="font-display text-[28px] md:text-[38px] font-bold leading-[1.14] tracking-tight max-w-[560px]">
+          <h2 className="font-display text-[24px] leading-[1.2] md:text-[38px] font-bold md:leading-[1.14] tracking-tight max-w-[560px]">
             Credentials clients can count on
           </h2>
 

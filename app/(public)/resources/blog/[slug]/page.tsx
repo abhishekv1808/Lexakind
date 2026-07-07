@@ -134,7 +134,7 @@ export default async function BlogPostPage({
           <span className="inline-block rounded-[3px] bg-ora px-2.5 py-1 font-body text-[11px] font-semibold uppercase tracking-[0.08em] text-white">
             {post.category}
           </span>
-          <h1 className="mt-5 font-display text-[30px] font-medium leading-[1.15] tracking-tight text-white md:text-[44px]">
+          <h1 className="mt-5 font-display text-[26px] font-medium leading-[1.2] tracking-tight text-white md:text-[44px] md:leading-[1.15]">
             {post.title}
           </h1>
 

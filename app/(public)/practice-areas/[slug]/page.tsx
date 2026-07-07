@@ -151,10 +151,10 @@ export default async function PracticeAreaPage({
             </span>
             <div>
               <SectionLabel>Practice Area</SectionLabel>
-              <h1 className="max-w-[720px] font-display text-[34px] font-medium leading-[1.1] tracking-tight text-white md:text-[52px]">
+              <h1 className="max-w-[720px] font-display text-[28px] font-medium leading-[1.15] tracking-tight text-white md:text-[52px] md:leading-[1.1]">
                 {pa.name}
               </h1>
-              <p className="mt-4 max-w-[600px] font-body text-[15px] font-normal leading-[1.7] text-[#adadb4] md:text-[16px]">
+              <p className="mt-4 max-w-[600px] font-body text-[13px] font-normal leading-[1.7] text-[#adadb4] md:text-[16px]">
                 {tagline}
               </p>
             </div>
@@ -214,7 +214,7 @@ export default async function PracticeAreaPage({
           <div className="min-w-0">
             {/* Intro + stats */}
             <RevealOnScroll>
-              <p className="max-w-[680px] font-body text-[16px] font-light leading-[1.8] text-[#3f4148]">
+              <p className="max-w-[680px] font-body text-[14px] md:text-[16px] font-light leading-[1.8] text-[#3f4148]">
                 {description}
               </p>
               <div className="mt-7 grid grid-cols-3 gap-px overflow-hidden rounded-[4px] bg-wht-3">

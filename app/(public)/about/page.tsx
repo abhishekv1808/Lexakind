@@ -131,10 +131,10 @@ export default function AboutPage() {
           </nav>
 
           <SectionLabel>About Lexakind</SectionLabel>
-          <h1 className="max-w-[760px] font-display text-[34px] font-medium leading-[1.1] tracking-tight text-white md:text-[52px]">
+          <h1 className="max-w-[760px] font-display text-[28px] font-medium leading-[1.15] tracking-tight text-white md:text-[52px] md:leading-[1.1]">
             A modern legal partner, grounded in trust
           </h1>
-          <p className="mt-5 max-w-[600px] font-body text-[15px] font-normal leading-[1.7] text-[#adadb4] md:text-[16px]">
+          <p className="mt-5 max-w-[600px] font-body text-[13px] font-normal leading-[1.7] text-[#adadb4] md:text-[16px]">
             Lexakind was built on a simple belief: legal help should be
             accessible, transparent and genuinely on your side. We connect
             individuals and businesses with verified advocates across India —

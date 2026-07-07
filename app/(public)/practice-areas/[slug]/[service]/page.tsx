@@ -146,10 +146,10 @@ export default async function ServiceDetailPage({
             </span>
             <div>
               <SectionLabel>{pa.name}</SectionLabel>
-              <h1 className="max-w-[760px] font-display text-[32px] font-medium leading-[1.1] tracking-tight text-white md:text-[48px]">
+              <h1 className="max-w-[760px] font-display text-[27px] font-medium leading-[1.15] tracking-tight text-white md:text-[48px] md:leading-[1.1]">
                 {svc.name}
               </h1>
-              <p className="mt-4 max-w-[600px] font-body text-[15px] font-normal leading-[1.7] text-[#adadb4] md:text-[16px]">
+              <p className="mt-4 max-w-[600px] font-body text-[13px] font-normal leading-[1.7] text-[#adadb4] md:text-[16px]">
                 {svc.description}
               </p>
             </div>
@@ -222,7 +222,7 @@ export default async function ServiceDetailPage({
                 {content.intro.map((para) => (
                   <p
                     key={para.slice(0, 40)}
-                    className="font-body text-[16px] font-light leading-[1.8] text-[#3f4148]"
+                    className="font-body text-[14px] md:text-[16px] font-light leading-[1.8] text-[#3f4148]"
                   >
                     {para}
                   </p>

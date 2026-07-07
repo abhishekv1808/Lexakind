@@ -33,7 +33,7 @@ export function WhySection() {
       <div className="max-w-6xl mx-auto">
         <RevealOnScroll>
           <SectionLabel>Why Lexakind</SectionLabel>
-          <h2 className="font-display text-[34px] md:text-[42px] font-bold leading-[1.12] tracking-tight max-w-[520px]">
+          <h2 className="font-display text-[26px] leading-[1.18] md:text-[42px] font-bold md:leading-[1.12] tracking-tight max-w-[520px]">
             Built on trust, clarity and verified expertise
           </h2>
         </RevealOnScroll>
@@ -54,7 +54,7 @@ export function WhySection() {
               <h3 className="mt-6 font-display text-lg font-semibold leading-snug">
                 {card.title}
               </h3>
-              <p className="mt-3 font-body text-sm font-light leading-relaxed text-muted">
+              <p className="mt-3 font-body text-[13px] md:text-sm font-light leading-relaxed text-muted">
                 {card.description}
               </p>
 

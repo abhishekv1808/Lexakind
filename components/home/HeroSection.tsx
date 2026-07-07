@@ -112,7 +112,7 @@ export function HeroSection() {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[720px] flex-col overflow-hidden md:min-h-[760px] lg:min-h-[860px]"
+      className="relative flex min-h-[600px] flex-col overflow-hidden sm:min-h-[680px] md:min-h-[760px] lg:min-h-[860px]"
     >
       {/* Dark background — subtle radial lift behind the figure */}
       <div
@@ -188,14 +188,14 @@ export function HeroSection() {
               {/* Bottom-left content */}
               <div className="max-w-[720px]">
                 <motion.div {...mount(0.1)}>
-                  <span className="inline-flex items-center rounded-[4px] bg-white/10 px-4 py-2 font-body text-[14px] font-medium tracking-[0.01em] text-white backdrop-blur-sm">
+                  <span className="inline-flex items-center rounded-[4px] bg-white/10 px-3 py-1.5 font-body text-[12px] font-medium tracking-[0.01em] text-white backdrop-blur-sm md:px-4 md:py-2 md:text-[14px]">
                     Welcome to Lexakind
                   </span>
                 </motion.div>
 
                 <motion.h1
                   {...mount(0.25)}
-                  className="mt-6 font-display text-[34px] font-medium leading-[1.15] tracking-tight text-white md:text-[46px] lg:text-[56px]"
+                  className="mt-5 font-display text-[27px] font-medium leading-[1.2] tracking-tight text-white sm:text-[32px] md:mt-6 md:text-[46px] md:leading-[1.15] lg:text-[56px]"
                 >
                   Transforming Equity With
                   <br />
@@ -204,7 +204,7 @@ export function HeroSection() {
 
                 <motion.p
                   {...mount(0.45)}
-                  className="mt-6 max-w-[660px] font-body text-[16px] font-normal leading-[1.7] text-[#adadb4]"
+                  className="mt-4 max-w-[660px] font-body text-[13px] font-normal leading-[1.65] text-[#adadb4] md:mt-6 md:text-[16px] md:leading-[1.7]"
                 >
                   We provide trusted legal representation with a strategic
                   approach, delivering clear guidance, strong advocacy, and
@@ -219,14 +219,14 @@ export function HeroSection() {
                 className="flex items-center gap-4 lg:pb-1.5"
               >
                 <div className="text-left lg:text-right">
-                  <p className="font-display text-[32px] font-bold leading-none text-white">
+                  <p className="font-display text-[26px] font-bold leading-none text-white md:text-[32px]">
                     <AnimatedCounter
                       value={4000}
                       suffix="+"
                       format={(n) => String(n)}
                     />
                   </p>
-                  <p className="mt-1 font-body text-[14px] font-normal text-[#adadb4]">
+                  <p className="mt-1 font-body text-[12px] font-normal text-[#adadb4] md:text-[14px]">
                     Satisfied Clients
                   </p>
                 </div>
@@ -234,7 +234,7 @@ export function HeroSection() {
                   {CLIENTS.map((c) => (
                     <div
                       key={c.initials}
-                      className="relative h-11 w-11 overflow-hidden rounded-full ring-2 ring-white/25"
+                      className="relative h-9 w-9 overflow-hidden rounded-full ring-2 ring-white/25 md:h-11 md:w-11"
                     >
                       <Image
                         src={c.image}
@@ -253,12 +253,12 @@ export function HeroSection() {
           {/* Full-width service strip */}
           <motion.div
             {...mount(0.75)}
-            className="grid grid-cols-2 gap-y-5 py-7 md:grid-cols-4"
+            className="grid grid-cols-2 gap-x-4 gap-y-3.5 py-5 md:grid-cols-4 md:gap-y-5 md:py-7"
           >
             {SERVICES.map((service) => (
               <span
                 key={service}
-                className="font-body text-[16px] font-semibold text-white md:text-[17px]"
+                className="font-body text-[13px] font-semibold leading-snug text-white md:text-[17px]"
               >
                 {service}
               </span>

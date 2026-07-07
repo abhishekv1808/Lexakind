@@ -128,7 +128,7 @@ function RevealHeader() {
     <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
       <div>
         <SectionLabel>Areas of expertise</SectionLabel>
-        <h2 className="max-w-[520px] font-display text-[30px] font-semibold leading-[1.15] tracking-tight md:text-[38px]">
+        <h2 className="max-w-[520px] font-display text-[24px] font-semibold leading-[1.2] tracking-tight md:text-[38px] md:leading-[1.15]">
           Specialist counsel, whatever your matter
         </h2>
       </div>

@@ -44,7 +44,7 @@ export function PracticeAreasGrid() {
         <RevealOnScroll className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
             <SectionLabel>Practice Areas</SectionLabel>
-            <h2 className="font-display text-[34px] md:text-[42px] font-bold leading-[1.12] tracking-tight max-w-[480px]">
+            <h2 className="font-display text-[26px] leading-[1.18] md:text-[42px] font-bold md:leading-[1.12] tracking-tight max-w-[480px]">
               Expert counsel across every area of law
             </h2>
           </div>

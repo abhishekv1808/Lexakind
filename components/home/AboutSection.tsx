@@ -30,7 +30,7 @@ export function AboutSection() {
         {/* LEFT */}
         <div>
           <SectionLabel>About Lexakind</SectionLabel>
-          <h2 className="font-display text-[34px] md:text-[42px] font-bold leading-[1.12] tracking-tight text-white max-w-[440px]">
+          <h2 className="font-display text-[26px] leading-[1.18] md:text-[42px] font-bold md:leading-[1.12] tracking-tight text-white max-w-[440px]">
             A modern legal partner, grounded in trust
           </h2>
 
@@ -72,7 +72,7 @@ export function AboutSection() {
         <div className="bg-blk-3 rounded-[4px] p-8 md:p-10">
           <div className="grid grid-cols-2 gap-8">
             <div>
-              <p className="font-display text-[48px] text-ora font-bold leading-none">
+              <p className="font-display text-[36px] md:text-[48px] text-ora font-bold leading-none">
                 160+
               </p>
               <p className="mt-2 font-body text-[13px] text-muted font-light">
@@ -80,7 +80,7 @@ export function AboutSection() {
               </p>
             </div>
             <div>
-              <p className="font-display text-[48px] text-ora font-bold leading-none">
+              <p className="font-display text-[36px] md:text-[48px] text-ora font-bold leading-none">
                 4,000+
               </p>
               <p className="mt-2 font-body text-[13px] text-muted font-light">

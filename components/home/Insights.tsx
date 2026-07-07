@@ -14,7 +14,7 @@ export function Insights() {
         <RevealOnScroll className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <SectionLabel>Legal insights</SectionLabel>
-            <h2 className="max-w-[480px] font-display text-[30px] font-semibold leading-[1.15] tracking-tight md:text-[38px]">
+            <h2 className="max-w-[480px] font-display text-[24px] font-semibold leading-[1.2] tracking-tight md:text-[38px] md:leading-[1.15]">
               Guidance from our legal experts
             </h2>
           </div>

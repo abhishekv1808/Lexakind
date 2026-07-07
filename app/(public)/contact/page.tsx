@@ -76,10 +76,10 @@ export default function ContactPage() {
           </nav>
 
           <SectionLabel>Get in touch</SectionLabel>
-          <h1 className="font-display text-[34px] md:text-[52px] font-medium leading-[1.1] tracking-tight text-white max-w-[640px]">
+          <h1 className="font-display text-[28px] leading-[1.15] md:text-[52px] font-medium md:leading-[1.1] tracking-tight text-white max-w-[640px]">
             Let&apos;s talk about your legal needs
           </h1>
-          <p className="mt-5 max-w-[540px] font-body text-[15px] md:text-[16px] font-normal leading-[1.7] text-[#adadb4]">
+          <p className="mt-5 max-w-[540px] font-body text-[13px] md:text-[16px] font-normal leading-[1.7] text-[#adadb4]">
             Whether you need a consultation, have a question, or want to get
             started — our team is ready to help. Reach out and a verified
             advocate will respond shortly.

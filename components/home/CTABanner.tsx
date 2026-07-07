@@ -47,11 +47,11 @@ export function CTABanner() {
             </span>
           </div>
 
-          <h2 className="font-display text-[30px] font-bold leading-[1.12] tracking-tight text-white md:text-[42px]">
+          <h2 className="font-display text-[26px] font-bold leading-[1.18] tracking-tight text-white md:text-[42px] md:leading-[1.12]">
             Need legal advice? Talk to a verified expert today.
           </h2>
 
-          <p className="mt-4 max-w-[440px] font-body text-[15px] font-light leading-relaxed text-[#adadb4]">
+          <p className="mt-4 max-w-[440px] font-body text-[13px] font-light leading-relaxed text-[#adadb4] md:text-[15px]">
             Your first consultation is free. Tell us about your matter and a
             bar-verified advocate will get back to you within 24 hours.
           </p>

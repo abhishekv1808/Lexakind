@@ -17,7 +17,7 @@ export function TrustBar() {
                 i < STATS.length - 1 ? 'md:border-r md:border-white/7' : ''
               }`}
             >
-              <p className="font-display text-[28px] text-ora font-bold leading-none">
+              <p className="font-display text-[22px] md:text-[28px] text-ora font-bold leading-none">
                 {stat.value}
               </p>
               <p className="mt-1.5 font-body text-[12px] text-muted font-light leading-snug">

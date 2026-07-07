@@ -28,7 +28,7 @@ export function ProcessSection() {
       <div className="max-w-6xl mx-auto">
         <RevealOnScroll>
           <SectionLabel>How It Works</SectionLabel>
-          <h2 className="font-display text-[34px] md:text-[42px] font-bold leading-[1.12] tracking-tight max-w-[480px]">
+          <h2 className="font-display text-[26px] leading-[1.18] md:text-[42px] font-bold md:leading-[1.12] tracking-tight max-w-[480px]">
             Three simple steps to resolution
           </h2>
         </RevealOnScroll>

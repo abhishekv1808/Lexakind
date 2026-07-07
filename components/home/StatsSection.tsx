@@ -20,7 +20,7 @@ export function StatsSection() {
               i < STATS.length - 1 ? 'lg:border-r lg:border-white/8' : ''
             }`}
           >
-            <p className="font-display text-[40px] md:text-[48px] text-white font-bold leading-none">
+            <p className="font-display text-[32px] md:text-[48px] text-white font-bold leading-none">
               <AnimatedCounter value={stat.value} />
               <span className="text-ora">{stat.suffix}</span>
             </p>

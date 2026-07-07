@@ -39,10 +39,10 @@ export function FAQSection() {
         {/* LEFT */}
         <div className="lg:col-span-1">
           <SectionLabel>FAQ</SectionLabel>
-          <h2 className="font-display text-[34px] md:text-[42px] font-bold leading-[1.12] tracking-tight">
+          <h2 className="font-display text-[26px] leading-[1.18] md:text-[42px] font-bold md:leading-[1.12] tracking-tight">
             Questions, answered
           </h2>
-          <p className="mt-4 font-body text-sm font-light leading-relaxed text-muted max-w-[320px]">
+          <p className="mt-4 font-body text-[13px] md:text-sm font-light leading-relaxed text-muted max-w-[320px]">
             Everything you need to know about working with Lexakind. Can&apos;t
             find what you&apos;re looking for? Reach out directly.
           </p>

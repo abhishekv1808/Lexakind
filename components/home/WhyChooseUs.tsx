@@ -64,7 +64,7 @@ export function WhyChooseUs() {
 
           {/* floating stat card */}
           <div className="absolute bottom-5 right-5 z-20 rounded-[4px] bg-blk/90 px-6 py-5 shadow-lg backdrop-blur-sm md:-right-6">
-            <p className="font-display text-[36px] font-bold leading-none text-ora">
+            <p className="font-display text-[30px] md:text-[36px] font-bold leading-none text-ora">
               <AnimatedCounter value={98} suffix="%" />
             </p>
             <p className="mt-1.5 font-body text-[12px] font-light text-white/70">
@@ -76,10 +76,10 @@ export function WhyChooseUs() {
         {/* Content side */}
         <div>
           <SectionLabel>Why choose us</SectionLabel>
-          <h2 className="max-w-[440px] font-display text-[30px] font-semibold leading-[1.15] tracking-tight md:text-[38px]">
+          <h2 className="max-w-[440px] font-display text-[24px] font-semibold leading-[1.2] tracking-tight md:text-[38px] md:leading-[1.15]">
             The clarity and care your case deserves
           </h2>
-          <p className="mt-4 max-w-[460px] font-body text-[14px] font-light leading-relaxed text-muted">
+          <p className="mt-4 max-w-[460px] font-body text-[13px] md:text-[14px] font-light leading-relaxed text-muted">
             We combine a verified advocate network with technology and a
             people-first approach — so quality legal help feels accessible, not
             intimidating.

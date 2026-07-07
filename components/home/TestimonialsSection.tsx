@@ -124,12 +124,12 @@ export function TestimonialsSection() {
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <SectionLabel>Testimonials</SectionLabel>
-            <h2 className="max-w-[480px] font-display text-[30px] font-semibold leading-[1.15] tracking-tight text-white md:text-[38px]">
+            <h2 className="max-w-[480px] font-display text-[24px] font-semibold leading-[1.2] tracking-tight text-white md:text-[38px] md:leading-[1.15]">
               Trusted by clients across India
             </h2>
           </div>
           <div className="flex items-center gap-4 rounded-[6px] border border-white/10 bg-white/[0.03] px-5 py-3.5">
-            <p className="font-display text-[34px] font-bold leading-none text-ora">
+            <p className="font-display text-[28px] md:text-[34px] font-bold leading-none text-ora">
               4.9
             </p>
             <div>
