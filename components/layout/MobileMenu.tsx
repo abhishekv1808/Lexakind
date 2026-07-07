@@ -37,7 +37,7 @@ export function MobileMenu({ open, onClose, onOpenServices }: Props) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
           data-lenis-prevent
-          className="fixed inset-0 z-[60] overflow-y-auto bg-blk md:hidden"
+          className="fixed inset-0 z-[210] overflow-y-auto bg-blk md:hidden"
           role="dialog"
           aria-modal="true"
           aria-label="Mobile navigation"

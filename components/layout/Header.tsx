@@ -10,7 +10,7 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
-import { Menu, Phone, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { NAV_LINKS, SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { MobileMenu } from "./MobileMenu";
@@ -86,7 +86,7 @@ export function Header() {
               alt="Lexakind"
               width={180}
               height={36}
-              className="h-5 w-auto"
+              className="h-4 w-auto md:h-5"
               priority
             />
           </Link>
@@ -164,11 +164,12 @@ export function Header() {
             </a>
 
             <button
-              onClick={() => setMenuOpen(true)}
-              aria-label="Open menu"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
               className="text-white p-2 -mr-2 hover:text-ora transition-colors"
             >
-              <Menu size={26} />
+              {menuOpen ? <X size={26} /> : <Menu size={26} />}
             </button>
           </div>
         </div>

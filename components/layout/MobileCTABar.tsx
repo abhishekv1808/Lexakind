@@ -1,9 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import { Phone, CalendarCheck } from 'lucide-react';
 import { SITE, WHATSAPP_LINK } from '@/lib/constants';
 import { trackEvent } from '@/lib/analytics';
+import { useConsultationModal } from '@/components/consultation/ConsultationModal';
 
 /**
  * Thumb-reach conversion bar for mobile. Fixed to the bottom of the
@@ -11,6 +11,8 @@ import { trackEvent } from '@/lib/analytics';
  * cover the same intents).
  */
 export function MobileCTABar() {
+  const { openConsultation } = useConsultationModal();
+
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-blk/95 backdrop-blur-sm md:hidden">
       <div className="grid grid-cols-3 gap-px">
@@ -38,14 +40,17 @@ export function MobileCTABar() {
           <span className="font-body text-[11px] font-medium">WhatsApp</span>
         </a>
 
-        <Link
-          href="/consultation"
-          onClick={() => trackEvent('click_book', { source: 'mobile_cta_bar' })}
+        <button
+          type="button"
+          onClick={() => {
+            trackEvent('click_book', { source: 'mobile_cta_bar' });
+            openConsultation();
+          }}
           className="flex flex-col items-center justify-center gap-1 bg-ora py-2.5 text-white active:bg-ora-h"
         >
           <CalendarCheck size={18} />
           <span className="font-body text-[11px] font-semibold">Book</span>
-        </Link>
+        </button>
       </div>
     </div>
   );
