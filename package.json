@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "compress-frames": "node scripts/compress-frames.mjs",
-    "compress-frames:dry": "node scripts/compress-frames.mjs --dry"
+    "compress-frames:dry": "node scripts/compress-frames.mjs --dry",
+    "generate-frames": "node scripts/generate-frame-sets.mjs",
+    "indexnow": "node scripts/indexnow-submit.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
