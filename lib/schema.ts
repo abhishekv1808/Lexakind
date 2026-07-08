@@ -42,7 +42,10 @@ export const localBusinessSchema = () => ({
     postalCode: SITE.address.postalCode,
     addressCountry: SITE.address.country,
   },
-  geo: { '@type': 'GeoCoordinates', latitude: 12.9716, longitude: 77.5946 },
+  // UB City / Concorde Towers, Vittal Mallya Rd — NOT the generic Bengaluru
+  // centroid. TODO: confirm the exact pin from Google Maps once the GBP
+  // listing is created, then align both to the same coordinates.
+  geo: { '@type': 'GeoCoordinates', latitude: 12.9718, longitude: 77.5957 },
   openingHoursSpecification: [
     {
       '@type': 'OpeningHoursSpecification',

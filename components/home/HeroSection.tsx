@@ -20,9 +20,9 @@ const SERVICES = [
 
 /** Overlapping client avatars — real user photos */
 const CLIENTS = [
-  { initials: "RM", image: "/images/testimonials/rohit-menon.png" },
-  { initials: "AD", image: "/images/testimonials/anita-desai.png" },
-  { initials: "KS", image: "/images/testimonials/karan-shah.png" },
+  { name: "Rohit Menon", image: "/images/testimonials/rohit-menon.png" },
+  { name: "Anita Desai", image: "/images/testimonials/anita-desai.png" },
+  { name: "Karan Shah", image: "/images/testimonials/karan-shah.png" },
 ];
 
 const ease = [0.22, 0.61, 0.36, 1] as const;
@@ -206,10 +206,15 @@ export function HeroSection() {
                   {...mount(0.45)}
                   className="mt-4 max-w-[660px] font-body text-[13px] font-normal leading-[1.65] text-[#adadb4] md:mt-6 md:text-[16px] md:leading-[1.7]"
                 >
-                  We provide trusted legal representation with a strategic
-                  approach, delivering clear guidance, strong advocacy, and
-                  reliable solutions for individuals and businesses seeking
-                  justice, protection, and long-term legal confidence.
+                  <span className="md:hidden">
+                    Trusted legal representation with clear guidance, strong advocacy, and reliable solutions.
+                  </span>
+                  <span className="hidden md:inline">
+                    We provide trusted legal representation with a strategic
+                    approach, delivering clear guidance, strong advocacy, and
+                    reliable solutions for individuals and businesses seeking
+                    justice, protection, and long-term legal confidence.
+                  </span>
                 </motion.p>
               </div>
 
@@ -233,12 +238,12 @@ export function HeroSection() {
                 <div className="flex -space-x-3">
                   {CLIENTS.map((c) => (
                     <div
-                      key={c.initials}
+                      key={c.name}
                       className="relative h-9 w-9 overflow-hidden rounded-full ring-2 ring-white/25 md:h-11 md:w-11"
                     >
                       <Image
                         src={c.image}
-                        alt={c.initials}
+                        alt={`${c.name} — satisfied Lexakind client`}
                         fill
                         sizes="44px"
                         className="object-cover"
