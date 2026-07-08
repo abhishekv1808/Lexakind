@@ -10,6 +10,7 @@ import { PracticeAreasGrid } from '@/components/home/PracticeAreasGrid';
 import { StatsSection } from '@/components/home/StatsSection';
 import { ProcessSection } from '@/components/home/ProcessSection';
 import { ExpertiseTabs } from '@/components/home/ExpertiseTabs';
+import { FounderSection } from '@/components/home/FounderSection';
 import { TeamSection } from '@/components/home/TeamSection';
 import { TestimonialsSection } from '@/components/home/TestimonialsSection';
 import { FAQSection } from '@/components/home/FAQSection';
@@ -45,6 +46,7 @@ export default function HomePage() {
       <StatsSection />
       <ProcessSection />
       <ExpertiseTabs />
+      <FounderSection />
       <TeamSection />
       <TestimonialsSection />
       <FAQSection />
