@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, ChevronRight } from 'lucide-react';
@@ -43,9 +44,15 @@ export function MobileMenu({ open, onClose, onOpenServices }: Props) {
           aria-label="Mobile navigation"
         >
           <div className="flex items-center justify-between h-[60px] px-5 border-b border-white/10">
-            <span className="font-display font-bold text-[22px] text-white">
-              LEX<span className="text-ora">A</span>KIND
-            </span>
+            <Link href="/" onClick={onClose} className="flex items-center">
+              <Image
+                src="/lexakind-logo.png"
+                alt="Lexakind"
+                width={180}
+                height={36}
+                className="h-4 w-auto"
+              />
+            </Link>
             <button
               onClick={onClose}
               aria-label="Close menu"
