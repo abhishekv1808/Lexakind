@@ -15,6 +15,20 @@ export const metadata: Metadata = {
   },
   description:
     'Lexakind connects you with 4,000+ verified lawyers across India. Expert legal help for property, family, criminal, corporate, cyber crime and 160+ services. Based in Bengaluru.',
+  icons: {
+    icon: [
+      { url: '/images/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/images/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/images/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { rel: 'icon', url: '/images/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { rel: 'icon', url: '/images/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
+  },
+  manifest: '/site.webmanifest',
   openGraph: {
     type: 'website',
     locale: 'en_IN',
