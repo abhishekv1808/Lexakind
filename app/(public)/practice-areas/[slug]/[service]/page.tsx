@@ -252,8 +252,8 @@ export default async function ServiceDetailPage({
             {/* Process */}
             <div className="mt-16">
               <SectionLabel>How it works</SectionLabel>
-              <h2 className="mb-8 max-w-[480px] font-display text-[26px] font-semibold leading-[1.15] tracking-tight md:text-[32px]">
-                {svc.name}: step by step
+              <h2 className="mb-8 max-w-[520px] font-display text-[26px] font-semibold leading-[1.15] tracking-tight md:text-[32px]">
+                How does the {svc.name.toLowerCase()} process work?
               </h2>
               <ol className="space-y-0">
                 {content.process.map((step, i) => (
@@ -284,8 +284,8 @@ export default async function ServiceDetailPage({
             {/* Documents */}
             <div className="mt-16">
               <SectionLabel>What you’ll need</SectionLabel>
-              <h2 className="mb-6 max-w-[480px] font-display text-[26px] font-semibold leading-[1.15] tracking-tight md:text-[32px]">
-                Documents typically required
+              <h2 className="mb-6 max-w-[520px] font-display text-[26px] font-semibold leading-[1.15] tracking-tight md:text-[32px]">
+                What documents do you need for {svc.name.toLowerCase()}?
               </h2>
               <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {content.documents.map((doc) => (
